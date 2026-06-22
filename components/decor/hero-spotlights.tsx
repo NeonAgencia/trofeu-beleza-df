@@ -5,15 +5,16 @@ import { cn } from "@/lib/utils";
 // (só adiciona luz, não esconde nada), bem sutis. Leve oscilação (motion-safe);
 // sob reduced-motion ficam estáticos mas visíveis (luz ambiente, não movimento).
 const SPOTS = [
-  { left: "50%", w: "24vw", rot: 13, c: "232,201,122", op: 0.1, blur: 30, dur: 12, delay: 0 },
-  { left: "72%", w: "20vw", rot: -11, c: "201,162,75", op: 0.08, blur: 34, dur: 15, delay: -5 },
-  { left: "28%", w: "18vw", rot: 19, c: "232,201,122", op: 0.06, blur: 38, dur: 18, delay: -9 },
+  { left: "50%", w: "24vw", rot: 13, c: "232,201,122", op: 0.18, blur: 30, dur: 9, delay: 0 },
+  { left: "72%", w: "20vw", rot: -11, c: "201,162,75", op: 0.14, blur: 34, dur: 11, delay: -5 },
+  { left: "28%", w: "18vw", rot: 19, c: "232,201,122", op: 0.12, blur: 38, dur: 13, delay: -9 },
 ] as const;
 
 export function HeroSpotlights({ className }: { className?: string }) {
   return (
     <div
       aria-hidden
+      style={{ opacity: "calc(0.78 + var(--bg-energy) * 0.45)" }}
       className={cn(
         "pointer-events-none absolute inset-0 z-20 overflow-hidden mix-blend-screen",
         className,
@@ -22,7 +23,7 @@ export function HeroSpotlights({ className }: { className?: string }) {
       {SPOTS.map((s, i) => (
         <div
           key={i}
-          className="absolute top-[-22%] h-[150%] origin-top"
+          className="fx absolute top-[-22%] h-[150%] origin-top"
           style={{
             left: s.left,
             width: s.w,
@@ -33,6 +34,7 @@ export function HeroSpotlights({ className }: { className?: string }) {
             // animação inline (o arbitrary do Tailwind não resolve var() na animation)
             animation: `spotlight-sway ${s.dur}s ease-in-out ${s.delay}s infinite`,
             ["--rot" as string]: `${s.rot}deg`,
+            ["--fxd" as string]: `${s.dur}s`,
           }}
         />
       ))}

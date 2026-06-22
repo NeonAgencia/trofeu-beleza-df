@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cinzel, Montserrat } from "next/font/google";
 import "./globals.css";
 import { MotionProvider } from "@/components/motion/motion-provider";
+import { BackgroundEnergy } from "@/components/decor/background-energy";
 
 const cinzel = Cinzel({
   variable: "--font-cinzel",
@@ -58,6 +59,7 @@ export default function RootLayout({
       className={`${cinzel.variable} ${montserrat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <BackgroundEnergy />
         <MotionProvider>{children}</MotionProvider>
       </body>
     </html>

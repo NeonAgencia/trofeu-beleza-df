@@ -41,10 +41,11 @@ export function TextureLines({
             key={d}
             d={d}
             pathLength={1}
-            className="td-line"
+            className="td-line fx"
             style={{
-              animationDuration: `${8 + i * 0.9}s`,
-              animationDelay: `${i * 0.7}s`,
+              animationDuration: `${5.5 + i * 0.6}s`,
+              animationDelay: `${i * 0.55}s`,
+              ["--fxd" as string]: `${5.5 + i * 0.6}s`,
             }}
           />
         ))}

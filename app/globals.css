@@ -59,6 +59,9 @@
 }
 
 :root {
+  /* Energia dos efeitos de fundo: 0 parado, sobe ao rolar (JS BackgroundEnergy). */
+  --bg-energy: 0;
+
   /* Marca (Seção 3) */
   --preto: #0a0a0a;
   --grafite: #1c1c1c;
@@ -207,10 +210,11 @@
    stroke-dasharray/offset normalizados via pathLength=1; loop lento e sutil.
    non-scaling-stroke mantém o filete fino e constante seja qual for a altura da seção. */
 .td-line {
-  --op: 0.4;
+  /* Intensidade base + reforço ao rolar (--bg-energy). */
+  --op: calc(0.52 + var(--bg-energy) * 0.4);
   fill: none;
   stroke: #e8c97a;
-  stroke-width: 1.25;
+  stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-dasharray: 1;
@@ -219,10 +223,10 @@
   animation: line-draw 9s ease-in-out infinite;
 }
 @media (max-width: 640px) {
-  /* Mais leve no mobile: filete mais fino e mais discreto. */
+  /* Um pouco mais discreto no mobile, mas ainda visível. */
   .td-line {
-    --op: 0.22;
-    stroke-width: 1;
+    --op: calc(0.34 + var(--bg-energy) * 0.35);
+    stroke-width: 1.25;
   }
 }
 @keyframes line-draw {
@@ -321,27 +325,16 @@
   }
 }
 
-/* Acessibilidade: quem pediu menos movimento tem tudo praticamente parado. */
+/* Decisão do cliente: os efeitos de fundo (linhas, névoa, holofotes, vídeo)
+   animam SEMPRE, mesmo com "Reduzir Movimento" ligado no aparelho.
+   A base do Tailwind injeta um reset global de prefers-reduced-motion
+   (*, ::before, ::after { animation-duration: .001ms !important }). Aqui
+   restauramos a animação dos elementos marcados .fx — especificidade .fx (0,1,0)
+   vence o * (0,0,0) com !important — usando a duração que cada um define (--fxd).
+   As transições de ENTRADA do conteúdo (motion/react) seguem respeitando a config. */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
-  /* Linhas ficam desenhadas e estáticas (sem o vai-e-vem do traço). */
-  .td-line {
-    animation: none !important;
-    stroke-dashoffset: 0 !important;
-    opacity: calc(var(--op) * 0.7) !important;
-  }
-  /* Brilho da borda para; hover não cresce nem aplica sombra animada. */
-  .glass-card::before {
-    animation: none !important;
-  }
-  .glass-card:hover {
-    transform: none !important;
+  .fx {
+    animation-duration: var(--fxd, 10s) !important;
+    animation-iteration-count: infinite !important;
   }
 }

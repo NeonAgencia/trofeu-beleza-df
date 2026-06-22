@@ -49,14 +49,15 @@ export function HeroTrophyVideo() {
       {/* Feixe de luz dourado varrendo o troféu (de tempos em tempos) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 overflow-hidden mix-blend-screen motion-reduce:hidden"
+        className="pointer-events-none absolute inset-0 overflow-hidden mix-blend-screen"
       >
         <div
-          className="absolute inset-y-0 -left-1/3 w-1/3 motion-safe:animate-[trophy-sweep_8s_ease-in-out_infinite]"
+          className="fx absolute inset-y-0 -left-1/3 w-1/3 animate-[trophy-sweep_8s_ease-in-out_infinite]"
           style={{
             background:
               "linear-gradient(100deg, rgba(232,201,122,0) 0%, rgba(232,201,122,0.45) 50%, rgba(232,201,122,0) 100%)",
             filter: "blur(7px)",
+            ["--fxd" as string]: "8s",
           }}
         />
       </div>
