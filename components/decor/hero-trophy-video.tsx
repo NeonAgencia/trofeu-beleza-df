@@ -1,27 +1,21 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useReducedMotion } from "motion/react";
 
 // Vídeo do troféu girando, ao NATURAL — preenche o vão da moldura (object-cover).
 // LOOP nativo contínuo: o vídeo foi montado com 1º frame = último, então `loop` +
 // preload="auto" (todo bufferizado) emenda sem tranco nem recarregar. autoplay/muted/
 // playsInline (iOS). IntersectionObserver (rootMargin generoso) religa o play ao
-// (quase) entrar na viewport. Respeita reduced-motion: pausa no 1º frame.
+// (quase) entrar na viewport.
+// O vídeo é conteúdo do hero (giro lento, mudo): toca SEMPRE, independente de
+// reduced-motion (que no iOS pausaria autoplay). Os enfeites animados ao redor
+// (feixe, linhas, névoa) é que respeitam reduced-motion.
 export function HeroTrophyVideo() {
-  const reduce = useReducedMotion();
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const v = ref.current;
     if (!v) return;
-
-    if (reduce) {
-      v.pause();
-      v.removeAttribute("autoplay");
-      v.currentTime = 0;
-      return;
-    }
 
     void v.play?.().catch(() => {});
 
@@ -34,7 +28,7 @@ export function HeroTrophyVideo() {
     );
     io.observe(v);
     return () => io.disconnect();
-  }, [reduce]);
+  }, []);
 
   return (
     <div className="relative h-full w-full overflow-hidden">
