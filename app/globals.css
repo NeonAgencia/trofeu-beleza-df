@@ -263,7 +263,7 @@
   position: relative;
   border: 1px solid rgba(201, 162, 75, 0.2);
   /* Mais transparente: deixa ver o fundo animado (borrado pelo blur). */
-  background: rgba(18, 18, 18, 0.3);
+  background: rgba(18, 18, 18, 0.23);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   transition:
