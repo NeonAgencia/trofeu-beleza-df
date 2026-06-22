@@ -1,4 +1,5 @@
 import { CtaLink } from "@/components/cta-link";
+import { LINK_INSCRICAO } from "@/lib/links";
 import { HeroLines } from "@/components/decor/hero-lines";
 
 export function FinalCta() {
@@ -16,7 +17,7 @@ export function FinalCta() {
         <p className="font-display text-lg uppercase tracking-wide text-dourado">
           Concorra. Participe. Destaque sua trajetória.
         </p>
-        <CtaLink href="#inscricao" size="lg" className="mt-2">
+        <CtaLink href={LINK_INSCRICAO} size="lg" className="mt-2">
           Faça sua inscrição
         </CtaLink>
       </div>

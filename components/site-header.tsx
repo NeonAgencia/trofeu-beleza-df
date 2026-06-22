@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CtaLink } from "@/components/cta-link";
+import { LINK_INSCRICAO } from "@/lib/links";
 import logoEscolas from "@/public/logo-escolas-mono.png";
 import logoValer from "@/public/logo-valer-mono.png";
 
@@ -75,7 +76,7 @@ export function SiteHeader() {
           {/* Botões de ação. No mobile estreito só cabe o primário;
               o secundário entra a partir de sm (o hero já oferece ambos). */}
           <div className="flex items-center gap-2">
-            <CtaLink href="#inscricao">Se inscreva</CtaLink>
+            <CtaLink href={LINK_INSCRICAO}>Se inscreva</CtaLink>
             <CtaLink
               href="#votacao"
               variant="secondary"

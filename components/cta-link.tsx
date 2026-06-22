@@ -18,9 +18,14 @@ export function CtaLink({
   size = "default",
   className,
 }: CtaLinkProps) {
+  // Links externos (http) abrem em nova aba, com segurança.
+  const isExternal = href.startsWith("http");
   return (
     <Link
       href={href}
+      {...(isExternal
+        ? { target: "_blank", rel: "noopener noreferrer" }
+        : {})}
       className={cn(
         "inline-flex items-center justify-center whitespace-nowrap rounded-lg font-sans font-semibold tracking-wide transition-[color,background-color,box-shadow] duration-300",
         size === "lg" ? "h-13 px-8 text-base" : "h-11 px-6 text-sm",

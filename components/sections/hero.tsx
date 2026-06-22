@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { CtaLink } from "@/components/cta-link";
+import { LINK_INSCRICAO } from "@/lib/links";
 import { HeroFog } from "@/components/decor/hero-fog";
 import { HeroLines } from "@/components/decor/hero-lines";
 import { HeroSpotlights } from "@/components/decor/hero-spotlights";
@@ -35,7 +36,7 @@ export function Hero() {
             e feita para valorizar o talento local.
           </p>
           <div className="mt-2 flex flex-wrap justify-center gap-4 lg:justify-start">
-            <CtaLink href="#inscricao" size="lg">
+            <CtaLink href={LINK_INSCRICAO} size="lg">
               Se inscreva
             </CtaLink>
             <CtaLink href="#votacao" variant="secondary" size="lg">
