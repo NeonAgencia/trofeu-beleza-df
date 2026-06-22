@@ -264,8 +264,8 @@
   border: 1px solid rgba(201, 162, 75, 0.2);
   /* Mais transparente: deixa ver o fundo animado (borrado pelo blur). */
   background: rgba(18, 18, 18, 0.23);
-  backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   transition:
     transform 0.3s ease,
     border-color 0.3s ease,
@@ -274,8 +274,8 @@
 @media (min-width: 640px) {
   /* Vidro mais presente no desktop (embaçado escuro com mais profundidade). */
   .glass-card {
-    backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
   }
 }
 .glass-card::before {
