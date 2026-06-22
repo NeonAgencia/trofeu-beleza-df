@@ -262,8 +262,8 @@
 .glass-card {
   position: relative;
   border: 1px solid rgba(201, 162, 75, 0.2);
-  /* Mais transparente: deixa ver o fundo animado (borrado pelo blur). */
-  background: rgba(18, 18, 18, 0.23);
+  /* Mobile: bem transparente — deixa ver mais o fundo animado (borrado). */
+  background: rgba(18, 18, 18, 0.16);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   transition:
@@ -272,8 +272,9 @@
     box-shadow 0.3s ease;
 }
 @media (min-width: 640px) {
-  /* Vidro mais presente no desktop (embaçado escuro com mais profundidade). */
+  /* Desktop: vidro mais presente e menos transparente (card mais sólido). */
   .glass-card {
+    background: rgba(18, 18, 18, 0.42);
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
   }
