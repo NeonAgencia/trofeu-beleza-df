@@ -18,9 +18,11 @@ export function Hero() {
       {/* Textura A — filetes dourados varrendo o fundo do palco (sutil) */}
       <HeroLines />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-16 lg:grid-cols-2">
-        {/* Texto */}
-        <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left">
+      {/* Mobile: empilha na ordem chamada → troféu → descrição → botões.
+          Desktop (lg): texto à esquerda (2 linhas) + troféu à direita — igual ao aprovado. */}
+      <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-y-6 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-6">
+        {/* Texto — parte de cima (eyebrow + título + chamada) */}
+        <div className="flex flex-col items-center gap-6 text-center lg:col-start-1 lg:row-start-1 lg:items-start lg:self-end lg:text-left">
           <span className="font-sans text-xs font-semibold uppercase tracking-[0.3em] text-dourado">
             ✦ Troféu · Beleza DF
           </span>
@@ -30,24 +32,12 @@ export function Hero() {
           <p className="font-sans text-lg text-branco-quente">
             Reconhecendo quem faz a beleza acontecer em todo o Distrito Federal.
           </p>
-          <p className="max-w-xl font-sans text-base leading-relaxed text-cinza-texto">
-            Profissionais e estabelecimentos da beleza já podem se inscrever para
-            representar sua Região Administrativa em uma premiação popular, online
-            e feita para valorizar o talento local.
-          </p>
-          <div className="mt-2 flex flex-wrap justify-center gap-4 lg:justify-start">
-            <CtaLink href={LINK_INSCRICAO} size="lg">
-              Se inscreva
-            </CtaLink>
-            <CtaLink href="#votacao" variant="secondary" size="lg">
-              Vote no melhor
-            </CtaLink>
-          </div>
         </div>
 
         {/* Palco: troféu (vídeo) girando DENTRO da moldura dourada barroca. O vídeo
-            preenche o vão central; a moldura (PNG transparente) cobre as bordas. */}
-        <div className="relative mx-auto w-full max-w-[550px]">
+            preenche o vão central; a moldura (PNG transparente) cobre as bordas.
+            Mobile: menor e ENTRE as frases. Desktop: coluna da direita. */}
+        <div className="relative mx-auto w-full max-w-[240px] sm:max-w-[360px] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:max-w-[550px]">
           {/* Glow dourado muito sutil atrás da moldura, pra assentar no hero */}
           <div
             aria-hidden
@@ -72,10 +62,37 @@ export function Hero() {
               alt=""
               aria-hidden
               fill
-              sizes="(max-width: 1024px) 80vw, 360px"
+              sizes="(max-width: 640px) 240px, (max-width: 1024px) 360px, 550px"
               className="pointer-events-none select-none object-contain"
               priority
             />
+          </div>
+        </div>
+
+        {/* Texto — parte de baixo (descrição + botões) */}
+        <div className="flex flex-col items-center gap-6 text-center lg:col-start-1 lg:row-start-2 lg:items-start lg:self-start lg:text-left">
+          <p className="max-w-xl font-sans text-base leading-relaxed text-cinza-texto">
+            Profissionais e estabelecimentos da beleza já podem se inscrever para
+            representar sua Região Administrativa em uma premiação popular, online
+            e feita para valorizar o talento local.
+          </p>
+          {/* Mobile: lado a lado, menores (flex-1). Desktop: tamanho aprovado. */}
+          <div className="mt-2 flex w-full justify-center gap-3 lg:w-auto lg:justify-start lg:gap-4">
+            <CtaLink
+              href={LINK_INSCRICAO}
+              size="lg"
+              className="h-11 flex-1 px-3 text-sm sm:h-13 sm:flex-none sm:px-8 sm:text-base"
+            >
+              Se inscreva
+            </CtaLink>
+            <CtaLink
+              href="#votacao"
+              variant="secondary"
+              size="lg"
+              className="h-11 flex-1 px-3 text-sm sm:h-13 sm:flex-none sm:px-8 sm:text-base"
+            >
+              Vote no melhor
+            </CtaLink>
           </div>
         </div>
       </div>
