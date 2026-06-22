@@ -14,15 +14,15 @@ const NAV = [
 ];
 
 // Header em duas camadas:
-// - Faixa institucional (logos): FIXA no topo (sticky), só desktop. Não acompanha
-//   o scroll — fica sempre visível.
+// - Faixa institucional (logos): FIXA no topo (position: fixed), só desktop. Sempre
+//   visível ao rolar. Um spacer reserva a altura dela pra não cobrir o conteúdo.
 // - Linha principal (Troféu + menu + botões): rola normalmente com a página e sai
 //   de vista ao rolar.
 export function SiteHeader() {
   return (
     <>
-      {/* Faixa de logos — fixa no topo (desktop). Escolas à esquerda, Valer à direita. */}
-      <div className="sticky top-0 z-50 hidden border-b border-border/50 bg-preto/95 backdrop-blur lg:block">
+      {/* Faixa de logos — FIXA no topo (desktop). Escolas à esquerda, Valer à direita. */}
+      <div className="fixed inset-x-0 top-0 z-50 hidden border-b border-border/50 bg-preto/95 backdrop-blur lg:block">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-2">
           {/* Esquerda: Escolas de Sucesso, com "Venha ser" integrado ao lockup */}
           <div className="flex flex-col items-start gap-1 leading-none">
@@ -45,6 +45,9 @@ export function SiteHeader() {
           <Image src={logoValer} alt="Instituto Valer" className="h-14 w-auto" />
         </div>
       </div>
+
+      {/* Spacer — reserva a altura da faixa fixa (desktop), evita sobreposição */}
+      <div aria-hidden className="hidden h-[94px] lg:block" />
 
       {/* Linha principal — rola normalmente com a página */}
       <header className="relative z-40 border-b border-border bg-preto/95 backdrop-blur">
