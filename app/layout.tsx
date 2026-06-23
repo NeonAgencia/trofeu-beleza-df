@@ -37,14 +37,14 @@ export const metadata: Metadata = {
     title: SITE_TITLE,
     description: SITE_DESC,
     images: [
-      { url: "/og.jpg", width: 1200, height: 630, alt: SITE_TITLE },
+      { url: "/og-image.png", width: 1731, height: 909, alt: SITE_TITLE },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESC,
-    images: ["/og.jpg"],
+    images: ["/og-image.png"],
   },
 };
 
