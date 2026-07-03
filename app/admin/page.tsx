@@ -463,16 +463,10 @@ export default function AdminDashboard() {
                     Exportar Planilha (XLSX)
                   </button>
                   <button
-                    onClick={exportPdf}
-                    className="bg-neutral-900 hover:bg-neutral-800 border border-border text-branco-quente font-sans text-xs font-bold py-2 px-4 rounded-md transition-colors cursor-pointer"
-                  >
-                    Vencedores (PDF)
-                  </button>
-                  <button
                     onClick={() => setActiveWinnersModal(true)}
                     className="bg-dourado hover:bg-dourado-claro text-preto font-sans text-xs font-bold py-2 px-4 rounded-md transition-colors shimmer-border cursor-pointer"
                   >
-                    🏆 Resultado Final!
+                    Resultado Final
                   </button>
                   <button
                     onClick={handleSignOut}
@@ -1410,10 +1404,10 @@ export default function AdminDashboard() {
 
             <div className="border-t border-neutral-900 pt-4 flex gap-3">
               <button
-                onClick={handleCopyWinners}
+                onClick={exportPdf}
                 className="flex-1 bg-dourado hover:bg-dourado-claro text-preto font-sans text-xs font-bold py-2.5 px-4 rounded-md transition-colors cursor-pointer text-center"
               >
-                Copiar Resultado (WhatsApp)
+                🖨️ Gerar PDF para Impressão
               </button>
               <button
                 onClick={() => setActiveWinnersModal(false)}

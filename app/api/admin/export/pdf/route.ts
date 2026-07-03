@@ -59,22 +59,52 @@ export async function GET(req: NextRequest) {
       votesByCandidate[v.candidato_id] = (votesByCandidate[v.candidato_id] || 0) + 1;
     });
 
-    // 4. Agrupar e ordenar por categoria
-    const rankingByCategory: { [key: string]: Array<{ nome: string; ra: string; votos: number }> } = {};
+    // 4. Agrupar por Região Administrativa (RA) e encontrar o vencedor de cada categoria
+    const winnersByRA: { 
+      [ra: string]: Array<{ categoria: string; nome: string; votos: number }> 
+    } = {};
+
+    // Agrupar candidatos por categoria primeiro
+    const candidatesByCategory: { [cat: string]: Array<any> } = {};
     candidatos.forEach((c: any) => {
       const votesCount = votesByCandidate[c.id] || 0;
-      if (!rankingByCategory[c.categoria]) {
-        rankingByCategory[c.categoria] = [];
+      if (!candidatesByCategory[c.categoria]) {
+        candidatesByCategory[c.categoria] = [];
       }
-      rankingByCategory[c.categoria].push({
+      candidatesByCategory[c.categoria].push({
         nome: c.nome,
         ra: c.regiao_administrativa,
         votos: votesCount,
       });
     });
 
-    for (const cat in rankingByCategory) {
-      rankingByCategory[cat].sort((a, b) => b.votos - a.votos);
+    // Para cada categoria, agrupar candidatos por RA e escolher o vencedor
+    for (const catName in candidatesByCategory) {
+      const candidates = candidatesByCategory[catName];
+      const candsByRA: { [ra: string]: Array<any> } = {};
+      
+      candidates.forEach((cand) => {
+        const ra = cand.ra;
+        if (!candsByRA[ra]) {
+          candsByRA[ra] = [];
+        }
+        candsByRA[ra].push(cand);
+      });
+
+      for (const raName in candsByRA) {
+        candsByRA[raName].sort((a, b) => b.votos - a.votos);
+        const winner = candsByRA[raName][0];
+        if (winner) {
+          if (!winnersByRA[raName]) {
+            winnersByRA[raName] = [];
+          }
+          winnersByRA[raName].push({
+            categoria: catName,
+            nome: winner.nome,
+            votos: winner.votos
+          });
+        }
+      }
     }
 
     // 5. Iniciar PDFKit Document
@@ -105,73 +135,68 @@ export async function GET(req: NextRequest) {
     doc.fillColor(GRAY)
        .font('Helvetica')
        .fontSize(9)
-       .text('Troféu Os Melhores do Ano Beleza DF — Lista de Ganhadores e Ranking Parcial', { align: 'center' });
+       .text('Troféu Os Melhores do Ano Beleza DF — Lista Oficial de Vencedores por Região Administrativa', { align: 'center' });
 
     doc.moveDown(1.5);
 
-    const categories = Object.keys(rankingByCategory).sort();
+    const ras = Object.keys(winnersByRA).sort();
 
-    // Loop pelas categorias
-    categories.forEach((cat) => {
-      // Verificar espaço restante antes de iniciar a categoria
-      if (doc.y > 620) {
+    // Loop pelas Cidades (RAs)
+    ras.forEach((raName) => {
+      const candidates = winnersByRA[raName].sort((a, b) => a.categoria.localeCompare(b.categoria));
+      if (candidates.length === 0) return;
+
+      // Verificar espaço restante antes de iniciar a cidade
+      // Uma tabela com N linhas precisa de espaço suficiente
+      const requiredSpace = 25 + (candidates.length * 22) + 20;
+      if (doc.y + requiredSpace > 700) {
         doc.addPage();
       }
 
       doc.fillColor(GOLD)
          .font('Helvetica-Bold')
          .fontSize(11)
-         .text(cat.toUpperCase());
+         .text(`📍 ${raName.toUpperCase()}`);
          
       doc.moveDown(0.35);
 
       // Desenhar Tabela
       const tableTop = doc.y;
-      const colWidths = [90, 190, 130, 90];
-      const colPositions = [54, 144, 334, 464];
+      const colWidths = [170, 240, 90];
+      const colPositions = [54, 224, 464];
       const rowHeight = 22;
 
       // Desenhar Cabeçalho da Tabela
       doc.rect(54, tableTop, 500, rowHeight).fill(DARK);
       doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(8.5);
-      doc.text('Classificação', colPositions[0] + 8, tableTop + 7, { width: colWidths[0] - 16, lineBreak: false });
-      doc.text('Candidato', colPositions[1] + 8, tableTop + 7, { width: colWidths[1] - 16, lineBreak: false });
-      doc.text('Região (RA)', colPositions[2] + 8, tableTop + 7, { width: colWidths[2] - 16, lineBreak: false });
-      doc.text('Total Votos', colPositions[3] + 8, tableTop + 7, { width: colWidths[3] - 16, lineBreak: false });
+      doc.text('Categoria', colPositions[0] + 8, tableTop + 7, { width: colWidths[0] - 16, lineBreak: false });
+      doc.text('Vencedor 🥇', colPositions[1] + 8, tableTop + 7, { width: colWidths[1] - 16, lineBreak: false });
+      doc.text('Total Votos', colPositions[2] + 8, tableTop + 7, { width: colWidths[2] - 16, lineBreak: false });
 
       doc.y = tableTop + rowHeight;
-
-      const candidates = rankingByCategory[cat].slice(0, 5);
 
       candidates.forEach((cand, idx) => {
         const yPos = doc.y;
 
-        // Se for vencedor, colocar fundo dourado claro
-        if (idx === 0) {
-          doc.rect(54, yPos, 500, rowHeight).fill(LIGHT_GOLD);
-        } else {
-          doc.rect(54, yPos, 500, rowHeight).fill(WHITE);
-        }
+        // Fundo suave de vencedor para todas as linhas
+        doc.rect(54, yPos, 500, rowHeight).fill(LIGHT_GOLD);
 
         // Desenhar borda da linha
         doc.strokeColor('#DDDDDD').lineWidth(0.5).rect(54, yPos, 500, rowHeight).stroke();
 
-        const rank = idx === 0 ? '🏆 Vencedor' : `${idx + 1}º Lugar`;
-        const fontName = idx === 0 ? 'Helvetica-Bold' : 'Helvetica';
-        const txtColor = idx === 0 ? GOLD : DARK;
-
-        doc.fillColor(txtColor).font(fontName).fontSize(8);
-        doc.text(rank, colPositions[0] + 8, yPos + 7, { width: colWidths[0] - 16, lineBreak: false });
-        doc.fillColor(DARK).text(cand.nome, colPositions[1] + 8, yPos + 7, { width: colWidths[1] - 16, lineBreak: false });
-        doc.text(cand.ra, colPositions[2] + 8, yPos + 7, { width: colWidths[2] - 16, lineBreak: false });
+        doc.fillColor(DARK).font('Helvetica-Bold').fontSize(8);
+        doc.text(cand.categoria, colPositions[0] + 8, yPos + 7, { width: colWidths[0] - 16, lineBreak: false });
         
-        doc.fillColor(txtColor).font(fontName);
-        doc.text(`${cand.votos} votos`, colPositions[3] + 8, yPos + 7, { width: colWidths[3] - 16, lineBreak: false });
+        doc.font('Helvetica-Bold');
+        doc.text(cand.nome, colPositions[1] + 8, yPos + 7, { width: colWidths[1] - 16, lineBreak: false });
+        
+        doc.fillColor(GOLD).font('Helvetica-Bold');
+        doc.text(`${cand.votos} votos`, colPositions[3] ? colPositions[2] + 8 : colPositions[2] + 8, yPos + 7, { width: colWidths[2] - 16, lineBreak: false });
 
         doc.y = yPos + rowHeight;
       });
 
-      doc.moveDown(0.6);
+      doc.moveDown(0.8);
     });
 
     // Pós-processamento para desenhar as decorações de página (bordas douradas e rodapés com paginação final)
@@ -209,7 +234,7 @@ export async function GET(req: NextRequest) {
     return new NextResponse(new Uint8Array(fileBuffer), {
       status: 200,
       headers: {
-        'Content-Disposition': 'attachment; filename="ranking_vencedores_beleza_df.pdf"',
+        'Content-Disposition': 'attachment; filename="resultado_final_beleza_df.pdf"',
         'Content-Type': 'application/pdf',
       },
     });
