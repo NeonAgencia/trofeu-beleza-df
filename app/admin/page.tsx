@@ -426,7 +426,7 @@ export default function AdminDashboard() {
                     onClick={() => setActiveWinnersModal(true)}
                     className="bg-dourado hover:bg-dourado-claro text-preto font-sans text-xs font-bold py-2 px-4 rounded-md transition-colors shimmer-border cursor-pointer"
                   >
-                    🏆 Copiar Vencedores
+                    🏆 Resultado Final!
                   </button>
                   <button
                     onClick={handleSignOut}
@@ -1323,7 +1323,7 @@ export default function AdminDashboard() {
               ✕
             </button>
             <h4 className="font-display text-xs sm:text-sm font-bold text-dourado-claro uppercase tracking-wider border-b border-neutral-900 pb-3.5 mb-4 pr-10">
-              🏆 Lista Oficial de Vencedores (Copiar Texto)
+              🏆 Resultado Final!
             </h4>
             
             <div className="overflow-y-auto flex-1 flex flex-col gap-4 pr-1.5 scrollbar-thin max-h-[50vh] mb-4">
@@ -1361,7 +1361,7 @@ export default function AdminDashboard() {
                 onClick={handleCopyWinners}
                 className="flex-1 bg-dourado hover:bg-dourado-claro text-preto font-sans text-xs font-bold py-2.5 px-4 rounded-md transition-colors cursor-pointer text-center"
               >
-                Copiar para WhatsApp (Negrito)
+                Copiar Resultado (WhatsApp)
               </button>
               <button
                 onClick={() => setActiveWinnersModal(false)}
