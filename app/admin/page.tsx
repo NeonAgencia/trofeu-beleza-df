@@ -184,7 +184,10 @@ export default function AdminDashboard() {
     setSyncing(true);
     try {
       const res = await fetch("/api/admin/sync", {
-        method: "POST"
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${session.access_token}`
+        }
       });
       const data = await res.json();
       if (data.success) {

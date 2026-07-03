@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase';
 
 function parseCSV(text: string): string[][] {
@@ -60,8 +60,38 @@ function capitalizeName(name: string): string {
     .join(" ");
 }
 
-export async function POST() {
+export async function POST(req: NextRequest) {
   try {
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return NextResponse.json({ error: 'Usuário não autenticado.' }, { status: 401 });
+    }
+    
+    const token = authHeader.split(' ')[1];
+    const supabase = getSupabaseAdmin();
+    
+    // 1. Validar sessão do usuário
+    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+    if (authError || !user) {
+      return NextResponse.json({ error: 'Sessão inválida ou expirada.' }, { status: 401 });
+    }
+    
+    const userEmail = user.email?.toLowerCase();
+    if (!userEmail) {
+      return NextResponse.json({ error: 'Usuário não possui e-mail cadastrado.' }, { status: 403 });
+    }
+    
+    // 2. Verificar se o e-mail está cadastrado na tabela "MDA-admins"
+    const { data: adminRecord, error: adminError } = await supabase
+      .from('MDA-admins')
+      .select('id')
+      .eq('email', userEmail)
+      .maybeSingle();
+      
+    if (adminError || !adminRecord) {
+      return NextResponse.json({ error: 'Acesso restrito a administradores cadastrados.' }, { status: 403 });
+    }
+
     const sheetId = process.env.GOOGLE_SHEET_ID;
     if (!sheetId) {
       return NextResponse.json({ error: 'Missing GOOGLE_SHEET_ID env variable.' }, { status: 500 });
@@ -128,8 +158,6 @@ export async function POST() {
         uniqueCandidates.push(c);
       }
     }
-    
-    const supabase = getSupabaseAdmin();
     
     // Upsert em lotes de 100
     const batchSize = 100;

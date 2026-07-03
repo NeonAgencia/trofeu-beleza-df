@@ -22,6 +22,22 @@ export async function GET(req: NextRequest) {
     if (authError || !user) {
       return NextResponse.json({ error: 'Sessão administrativa inválida ou expirada.' }, { status: 401 });
     }
+
+    const userEmail = user.email?.toLowerCase();
+    if (!userEmail) {
+      return NextResponse.json({ error: 'Usuário não possui e-mail cadastrado.' }, { status: 403 });
+    }
+    
+    // Verificar se o e-mail está cadastrado na tabela "MDA-admins"
+    const { data: adminRecord, error: adminError } = await supabase
+      .from('MDA-admins')
+      .select('id')
+      .eq('email', userEmail)
+      .maybeSingle();
+      
+    if (adminError || !adminRecord) {
+      return NextResponse.json({ error: 'Acesso restrito a administradores cadastrados.' }, { status: 403 });
+    }
     
     // Executar o script Python para compilar o PDF dos vencedores
     console.log("Starting Python Winners PDF compilation...");
