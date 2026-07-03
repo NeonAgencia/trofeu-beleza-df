@@ -150,20 +150,66 @@ export default function AdminDashboard() {
     setIsUserAdmin(false);
   };
 
+  // Obter vencedores agrupados por Região Administrativa (RA) e Categoria
+  const getWinnersByRAAndCategory = () => {
+    if (!stats?.rankingByCategory) return {};
+
+    const winnersByRA: { 
+      [ra: string]: { 
+        [category: string]: { nome: string; votos: number } 
+      } 
+    } = {};
+
+    // Iterar pelas categorias
+    Object.keys(stats.rankingByCategory).forEach((catName) => {
+      const candidates = stats.rankingByCategory[catName];
+      
+      // Agrupar candidatos desta categoria por RA
+      const candsByRA: { [ra: string]: Array<any> } = {};
+      candidates.forEach((cand) => {
+        const ra = cand.regiao_administrativa;
+        if (!candsByRA[ra]) {
+          candsByRA[ra] = [];
+        }
+        candsByRA[ra].push(cand);
+      });
+
+      // Para cada RA nesta categoria, ordenar e escolher o vencedor
+      Object.keys(candsByRA).forEach((ra) => {
+        candsByRA[ra].sort((a, b) => b.votos - a.votos);
+        const winner = candsByRA[ra][0];
+        if (winner) {
+          if (!winnersByRA[ra]) {
+            winnersByRA[ra] = {};
+          }
+          winnersByRA[ra][catName] = {
+            nome: winner.nome,
+            votos: winner.votos
+          };
+        }
+      });
+    });
+
+    return winnersByRA;
+  };
+
   // Obter lista formatada de vencedores para cópia (WhatsApp)
   const getFormattedWinnersText = (): string => {
-    if (!stats?.rankingByCategory) return "";
+    const winnersByRA = getWinnersByRAAndCategory();
     
-    let text = "🏆 *VENCEDORES OFICIAIS — TROFÉU BELEZA DF 2026*\n";
+    let text = "🏆 *RESULTADO FINAL — TROFÉU BELEZA DF 2026*\n";
     text += "----------------------------------------\n\n";
 
-    Object.keys(stats.rankingByCategory).sort().forEach((cat) => {
-      const candidates = stats.rankingByCategory[cat];
-      const winner = candidates && candidates[0];
-      if (winner) {
-        text += `⚡ *${cat.toUpperCase()}*\n`;
-        text += `🥇 Vencedor: *${winner.nome}* (${winner.regiao_administrativa}) — ${winner.votos} votos\n\n`;
-      }
+    // Ordenar as cidades (RAs)
+    Object.keys(winnersByRA).sort().forEach((ra) => {
+      text += `📍 *${ra.toUpperCase()}*\n`;
+      
+      const categoriesInRA = winnersByRA[ra];
+      Object.keys(categoriesInRA).sort().forEach((cat) => {
+        const win = categoriesInRA[cat];
+        text += `• ${cat}: *${win.nome}* — ${win.votos} votos\n`;
+      });
+      text += "\n";
     });
 
     return text;
@@ -1323,32 +1369,38 @@ export default function AdminDashboard() {
               ✕
             </button>
             <h4 className="font-display text-xs sm:text-sm font-bold text-dourado-claro uppercase tracking-wider border-b border-neutral-900 pb-3.5 mb-4 pr-10">
-              🏆 Resultado Final!
+              🏆 Resultado Final
             </h4>
             
             <div className="overflow-y-auto flex-1 flex flex-col gap-4 pr-1.5 scrollbar-thin max-h-[50vh] mb-4">
               {(() => {
-                if (!stats?.rankingByCategory) return <div className="text-center font-sans text-xs text-cinza-texto italic">Carregando dados...</div>;
-                
-                const sortedCats = Object.keys(stats.rankingByCategory).sort();
+                const winnersByRA = getWinnersByRAAndCategory();
+                const sortedRAs = Object.keys(winnersByRA).sort();
 
-                if (sortedCats.length === 0) {
-                  return <div className="text-center font-sans text-xs text-cinza-texto italic py-10">Nenhum candidato carregado.</div>;
+                if (sortedRAs.length === 0) {
+                  return <div className="text-center font-sans text-xs text-cinza-texto italic py-10">Nenhum voto computado ainda.</div>;
                 }
 
-                return sortedCats.map((cat) => {
-                  const winner = stats.rankingByCategory[cat]?.[0];
-                  if (!winner) return null;
+                return sortedRAs.map((ra) => {
+                  const categoriesInRA = winnersByRA[ra];
                   return (
-                    <div key={cat} className="border-b border-neutral-900/60 pb-3 last:border-0">
-                      <span className="font-display text-[10px] text-dourado uppercase tracking-wider block mb-1">
-                        {cat}
-                      </span>
-                      <div className="flex justify-between items-center text-xs font-sans">
-                        <span className="font-bold text-branco-quente truncate max-w-[70%]">
-                          🥇 {winner.nome} <span className="text-[10px] text-neutral-500 font-normal">({winner.regiao_administrativa})</span>
-                        </span>
-                        <span className="text-dourado-claro font-bold">{winner.votos} votos</span>
+                    <div key={ra} className="mb-4 last:mb-0 bg-black/40 border border-neutral-900/40 p-4 rounded-xl">
+                      <h5 className="font-display text-[11px] font-bold text-dourado uppercase tracking-wider border-b border-neutral-950/40 pb-1.5 mb-2.5">
+                        📍 {ra}
+                      </h5>
+                      <div className="flex flex-col gap-2.5">
+                        {Object.keys(categoriesInRA).sort().map((cat) => {
+                          const win = categoriesInRA[cat];
+                          return (
+                            <div key={cat} className="flex justify-between items-center text-xs font-sans border-b border-neutral-900/20 pb-1.5 last:border-0 last:pb-0">
+                              <div className="flex flex-col truncate max-w-[70%]">
+                                <span className="font-bold text-branco-quente truncate">🥇 {win.nome}</span>
+                                <span className="text-[9px] text-cinza-texto truncate">{cat}</span>
+                              </div>
+                              <span className="text-dourado-claro font-bold shrink-0">{win.votos} votos</span>
+                            </div>
+                          );
+                        })}
                       </div>
                     </div>
                   );
