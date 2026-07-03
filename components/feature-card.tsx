@@ -1,6 +1,7 @@
 import type { ComponentType, SVGProps } from "react";
 import { cn } from "@/lib/utils";
 import { IgniteIcon } from "@/components/motion/ignite-icon";
+import { CtaLink } from "@/components/cta-link";
 
 type FeatureCardProps = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -9,6 +10,8 @@ type FeatureCardProps = {
   className?: string;
   /** "lg" dá mais destaque ao ícone e ao texto (usado na Premiação). */
   size?: "md" | "lg";
+  ctaText?: string;
+  ctaHref?: string;
 };
 
 // Card de destaque: ícone dourado + título + 1 linha.
@@ -19,6 +22,8 @@ export function FeatureCard({
   description,
   className,
   size = "md",
+  ctaText,
+  ctaHref,
 }: FeatureCardProps) {
   const lg = size === "lg";
 
@@ -55,6 +60,17 @@ export function FeatureCard({
       >
         {description}
       </p>
+      {ctaText && ctaHref && (
+        <div className="mt-auto pt-2">
+          <CtaLink
+            href={ctaHref}
+            className="w-full h-10 px-4 text-xs font-bold"
+            variant={title.toLowerCase().includes("votação") || title.toLowerCase().includes("voto") ? "secondary" : "primary"}
+          >
+            {ctaText}
+          </CtaLink>
+        </div>
+      )}
     </div>
   );
 }

@@ -51,12 +51,12 @@ export function SiteHeader() {
       {/* Spacer — reserva a altura da faixa fixa (desktop), evita sobreposição */}
       <div aria-hidden className="hidden h-[94px] lg:block" />
 
-      {/* Linha principal — rola normalmente com a página */}
-      <header className="relative z-40 border-b border-border bg-preto/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
+      {/* Linha principal — acompanha o scroll (sticky) */}
+      <header className="sticky top-0 lg:top-[94px] z-40 border-b border-border bg-preto/95 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
           <Link
             href="/"
-            className="whitespace-nowrap font-display text-sm font-bold uppercase tracking-[0.12em] text-dourado"
+            className="whitespace-nowrap font-display text-[10px] sm:text-sm font-bold uppercase tracking-[0.08em] sm:tracking-[0.12em] text-dourado"
           >
             {/* [placeholder de logo] */}
             Troféu · Beleza DF
@@ -74,14 +74,18 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          {/* Botões de ação. No mobile estreito só cabe o primário;
-              o secundário entra a partir de sm (o hero já oferece ambos). */}
-          <div className="flex items-center gap-3 sm:gap-4">
-            <CtaLink href={LINK_INSCRICAO}>Se inscreva</CtaLink>
+          {/* Botões de ação. Ambos visíveis no celular de forma compacta e responsiva. */}
+          <div className="flex items-center gap-1.5 sm:gap-3">
+            <CtaLink 
+              href={LINK_INSCRICAO}
+              className="h-8 px-2 sm:h-11 sm:px-6 text-[10px] sm:text-sm"
+            >
+              Se inscreva
+            </CtaLink>
             <CtaLink
               href="/votar"
               variant="secondary"
-              className="hidden sm:inline-flex"
+              className="h-8 px-2 sm:h-11 sm:px-6 text-[10px] sm:text-sm"
             >
               Vote no melhor
             </CtaLink>

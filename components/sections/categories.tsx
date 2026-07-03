@@ -17,6 +17,8 @@ import { SectionHeading } from "@/components/section-heading";
 import { CategoryCard } from "@/components/category-card";
 import { Reveal } from "@/components/motion/reveal";
 import { TextureLines } from "@/components/decor/texture-lines";
+import { CtaLink } from "@/components/cta-link";
+import { LINK_INSCRICAO } from "@/lib/links";
 
 const PROFISSIONAIS = [
   { icon: Scissors, label: "Melhor Cabeleireiro(a)" },
@@ -84,9 +86,15 @@ export function Categories() {
           </Reveal>
         </div>
 
-        <p className="text-center font-display text-lg uppercase tracking-wide text-dourado-claro">
-          Acompanhe. Participe. Viva esse reconhecimento.
-        </p>
+        <div className="flex flex-col items-center gap-6">
+          <p className="text-center font-display text-lg uppercase tracking-wide text-dourado-claro">
+            Acompanhe. Participe. Viva esse reconhecimento.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <CtaLink href={LINK_INSCRICAO}>Se inscreva</CtaLink>
+            <CtaLink href="/votar" variant="secondary">Vote no melhor</CtaLink>
+          </div>
+        </div>
       </div>
     </section>
   );

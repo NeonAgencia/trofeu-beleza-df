@@ -5,17 +5,22 @@ import { FeatureCard } from "@/components/feature-card";
 import { Reveal } from "@/components/motion/reveal";
 import { TextureLines } from "@/components/decor/texture-lines";
 import premioReconhecimento from "@/public/premio-reconhecimento.webp";
+import { LINK_INSCRICAO } from "@/lib/links";
 
 const DESTAQUES = [
   {
     icon: ClipboardList,
     title: "Inscrição Online",
     description: "Sua participação começa com um cadastro simples e digital.",
+    ctaText: "Se inscrever",
+    ctaHref: LINK_INSCRICAO,
   },
   {
     icon: Vote,
     title: "Votação Popular",
     description: "A comunidade decide quem se destacou no ano.",
+    ctaText: "Votar no melhor",
+    ctaHref: "/votar",
   },
   {
     icon: MapPin,
@@ -56,6 +61,8 @@ export function About() {
                   icon={d.icon}
                   title={d.title}
                   description={d.description}
+                  ctaText={d.ctaText}
+                  ctaHref={d.ctaHref}
                 />
               ))}
             </Reveal>

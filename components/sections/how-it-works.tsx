@@ -2,6 +2,8 @@ import { SectionHeading } from "@/components/section-heading";
 import { TimelineStep } from "@/components/timeline-step";
 import { Reveal } from "@/components/motion/reveal";
 import { TextureLines } from "@/components/decor/texture-lines";
+import { CtaLink } from "@/components/cta-link";
+import { LINK_INSCRICAO } from "@/lib/links";
 
 const PASSOS = [
   {
@@ -62,6 +64,10 @@ export function HowItWorks() {
             atingirem o número mínimo de inscritos por Região Administrativa
             entram em votação.
           </p>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <CtaLink href={LINK_INSCRICAO}>Se inscreva</CtaLink>
+            <CtaLink href="/votar" variant="secondary">Vote no melhor</CtaLink>
+          </div>
         </div>
       </div>
     </section>
