@@ -54,6 +54,7 @@ export default function AdminDashboard() {
   // Modais de detalhe de inscritos
   const [activeCityModal, setActiveCityModal] = useState<boolean>(false);
   const [activeCategoryModal, setActiveCategoryModal] = useState<boolean>(false);
+  const [activeWinnersModal, setActiveWinnersModal] = useState<boolean>(false);
 
   // Monitorar estado da autenticação
   useEffect(() => {
@@ -147,6 +148,34 @@ export default function AdminDashboard() {
     await supabase.auth.signOut();
     showNotification("Sessão encerrada.", "success");
     setIsUserAdmin(false);
+  };
+
+  // Obter lista formatada de vencedores para cópia (WhatsApp)
+  const getFormattedWinnersText = (): string => {
+    if (!stats?.rankingByCategory) return "";
+    
+    let text = "🏆 *VENCEDORES OFICIAIS — TROFÉU BELEZA DF 2026*\n";
+    text += "----------------------------------------\n\n";
+
+    Object.keys(stats.rankingByCategory).sort().forEach((cat) => {
+      const candidates = stats.rankingByCategory[cat];
+      const winner = candidates && candidates[0];
+      if (winner) {
+        text += `⚡ *${cat.toUpperCase()}*\n`;
+        text += `🥇 Vencedor: *${winner.nome}* (${winner.regiao_administrativa}) — ${winner.votos} votos\n\n`;
+      }
+    });
+
+    return text;
+  };
+
+  const handleCopyWinners = () => {
+    const text = getFormattedWinnersText();
+    navigator.clipboard.writeText(text).then(() => {
+      showNotification("Lista de vencedores copiada para o WhatsApp!", "success");
+    }).catch(() => {
+      showNotification("Falha ao copiar lista.", "error");
+    });
   };
 
   // Buscar estatísticas gerais (A própria API valida contra a tabela "MDA-admins")
@@ -389,13 +418,19 @@ export default function AdminDashboard() {
                   </button>
                   <button
                     onClick={exportPdf}
-                    className="bg-dourado hover:bg-dourado-claro text-preto font-sans text-xs font-bold py-2 px-4 rounded-md transition-colors shimmer-border"
+                    className="bg-neutral-900 hover:bg-neutral-800 border border-border text-branco-quente font-sans text-xs font-bold py-2 px-4 rounded-md transition-colors cursor-pointer"
                   >
                     Vencedores (PDF)
                   </button>
                   <button
+                    onClick={() => setActiveWinnersModal(true)}
+                    className="bg-dourado hover:bg-dourado-claro text-preto font-sans text-xs font-bold py-2 px-4 rounded-md transition-colors shimmer-border cursor-pointer"
+                  >
+                    🏆 Copiar Vencedores
+                  </button>
+                  <button
                     onClick={handleSignOut}
-                    className="border border-neutral-800 hover:border-red-500/50 hover:text-red-400 text-cinza-texto font-sans text-xs font-semibold py-2 px-4 rounded-md transition-colors"
+                    className="border border-neutral-800 hover:border-red-500/50 hover:text-red-400 text-cinza-texto font-sans text-xs font-semibold py-2 px-4 rounded-md transition-colors cursor-pointer"
                   >
                     Sair
                   </button>
@@ -1272,6 +1307,68 @@ export default function AdminDashboard() {
             </div>
             <div className="border-t border-neutral-900 pt-3 mt-4 text-[10px] text-neutral-500 font-sans italic text-center">
               Total geral cadastrado: {totalInscritos} candidatos
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal: Vencedores (Cópia rápida WhatsApp) */}
+      {activeWinnersModal && (
+        <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-[100] flex items-center justify-center p-4">
+          <div className="glass-card bg-[#0D0D0D]/95 border border-dourado/25 rounded-2xl w-full max-w-lg max-h-[85vh] flex flex-col p-6 overflow-hidden relative animate-fade-in shadow-2xl">
+            <button
+              onClick={() => setActiveWinnersModal(false)}
+              className="absolute top-4 right-4 text-cinza-texto hover:text-white font-sans font-bold text-base bg-black/40 hover:bg-neutral-800 w-8 h-8 rounded-full flex items-center justify-center transition-colors cursor-pointer"
+            >
+              ✕
+            </button>
+            <h4 className="font-display text-xs sm:text-sm font-bold text-dourado-claro uppercase tracking-wider border-b border-neutral-900 pb-3.5 mb-4 pr-10">
+              🏆 Lista Oficial de Vencedores (Copiar Texto)
+            </h4>
+            
+            <div className="overflow-y-auto flex-1 flex flex-col gap-4 pr-1.5 scrollbar-thin max-h-[50vh] mb-4">
+              {(() => {
+                if (!stats?.rankingByCategory) return <div className="text-center font-sans text-xs text-cinza-texto italic">Carregando dados...</div>;
+                
+                const sortedCats = Object.keys(stats.rankingByCategory).sort();
+
+                if (sortedCats.length === 0) {
+                  return <div className="text-center font-sans text-xs text-cinza-texto italic py-10">Nenhum candidato carregado.</div>;
+                }
+
+                return sortedCats.map((cat) => {
+                  const winner = stats.rankingByCategory[cat]?.[0];
+                  if (!winner) return null;
+                  return (
+                    <div key={cat} className="border-b border-neutral-900/60 pb-3 last:border-0">
+                      <span className="font-display text-[10px] text-dourado uppercase tracking-wider block mb-1">
+                        {cat}
+                      </span>
+                      <div className="flex justify-between items-center text-xs font-sans">
+                        <span className="font-bold text-branco-quente truncate max-w-[70%]">
+                          🥇 {winner.nome} <span className="text-[10px] text-neutral-500 font-normal">({winner.regiao_administrativa})</span>
+                        </span>
+                        <span className="text-dourado-claro font-bold">{winner.votos} votos</span>
+                      </div>
+                    </div>
+                  );
+                });
+              })()}
+            </div>
+
+            <div className="border-t border-neutral-900 pt-4 flex gap-3">
+              <button
+                onClick={handleCopyWinners}
+                className="flex-1 bg-dourado hover:bg-dourado-claro text-preto font-sans text-xs font-bold py-2.5 px-4 rounded-md transition-colors cursor-pointer text-center"
+              >
+                Copiar para WhatsApp (Negrito)
+              </button>
+              <button
+                onClick={() => setActiveWinnersModal(false)}
+                className="border border-neutral-800 hover:border-neutral-700 text-cinza-texto hover:text-white font-sans text-xs font-bold py-2.5 px-4 rounded-md transition-colors cursor-pointer"
+              >
+                Fechar
+              </button>
             </div>
           </div>
         </div>
