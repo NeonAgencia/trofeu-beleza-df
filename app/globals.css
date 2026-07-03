@@ -340,3 +340,47 @@
     animation-iteration-count: infinite !important;
   }
 }
+
+/* Efeito de Borda Brilhante em Looping nos Botões */
+@property --btn-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.shimmer-border {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-border::before {
+  content: "";
+  position: absolute;
+  inset: 0px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--btn-angle),
+    transparent 20%,
+    rgba(201, 162, 75, 0.15) 50%,
+    #e8c97a 80%,
+    rgba(201, 162, 75, 0.15) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: btn-rotate 3s linear infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@keyframes btn-rotate {
+  to {
+    --btn-angle: 360deg;
+  }
+}

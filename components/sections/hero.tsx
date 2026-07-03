@@ -86,7 +86,7 @@ export function Hero() {
               Se inscreva
             </CtaLink>
             <CtaLink
-              href="#votacao"
+              href="/votar"
               variant="secondary"
               size="lg"
               className="h-11 flex-1 px-3 text-sm sm:h-13 sm:flex-none sm:px-8 sm:text-base"

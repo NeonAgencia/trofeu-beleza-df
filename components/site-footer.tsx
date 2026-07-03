@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import logoEscolas from "@/public/logo-escolas-mono.png";
 import logoValer from "@/public/logo-valer-mono.png";
 
@@ -9,10 +10,7 @@ import logoValer from "@/public/logo-valer-mono.png";
 // Logos reais são placeholders por ora.
 const PARCEIROS = [
   { nome: "Troféu Os Melhores do Ano – Beleza DF", destaque: "protagonista" },
-  { nome: "Hair Brasília and Beauty", destaque: "apoio" },
-  { nome: "Cristiano Araújo", destaque: "parceiro" },
-  { nome: "Brasília Capital da Beleza", destaque: "parceiro" },
-  { nome: "ABB", destaque: "parceiro" },
+  { nome: "Hair Brasília and Beauty", destaque: "apoio", href: "https://hairbrasilia.com.br/" },
 ] as const;
 
 export function SiteFooter() {
@@ -25,44 +23,64 @@ export function SiteFooter() {
             Uma realização
           </span>
           <div className="flex items-center gap-8">
-            <Image
-              src={logoEscolas}
-              alt="Escolas de Sucesso"
-              className="h-12 w-auto"
-            />
-            <Image
-              src={logoValer}
-              alt="Instituto Valer"
-              className="h-12 w-auto"
-            />
+            <Link href="/" className="hover:opacity-80 transition-opacity">
+              <Image
+                src={logoEscolas}
+                alt="Escolas de Sucesso"
+                className="h-12 w-auto"
+              />
+            </Link>
+            <Link href="/" className="hover:opacity-80 transition-opacity">
+              <Image
+                src={logoValer}
+                alt="Instituto Valer"
+                className="h-12 w-auto"
+              />
+            </Link>
           </div>
         </div>
 
         {/* Logos dos parceiros em linha (placeholders) */}
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4">
-          {PARCEIROS.map((p) => (
-            <span
-              key={p.nome}
-              className={
-                p.destaque === "protagonista"
-                  ? "font-display text-sm font-bold uppercase tracking-wide text-dourado"
-                  : p.destaque === "apoio"
-                    ? "font-sans text-sm font-semibold text-branco-quente"
-                    : "font-sans text-xs text-cinza-texto"
-              }
-            >
-              {/* [placeholder de logo] */}
-              {p.nome}
-            </span>
-          ))}
+          {PARCEIROS.map((p) => {
+            const content = p.nome;
+            const className = p.destaque === "protagonista"
+              ? "font-display text-sm font-bold uppercase tracking-wide text-dourado"
+              : "font-sans text-sm font-semibold text-branco-quente hover:text-dourado transition-colors duration-300";
+            
+            if ('href' in p) {
+              return (
+                <a
+                  key={p.nome}
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={className}
+                >
+                  {content}
+                </a>
+              );
+            }
+            
+            return (
+              <span key={p.nome} className={className}>
+                {content}
+              </span>
+            );
+          })}
         </div>
 
-        {/* Contato */}
-        <div className="flex flex-col items-center gap-1 text-center font-sans text-sm text-cinza-texto">
-          <span>contato@trofeubelezadf.com.br</span>
-          <span>WhatsApp: (61) 0000-0000</span>
-          <span>Brasília, DF</span>
+        {/* Links Rápidos / Sitemap */}
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t border-b border-border/30 py-6">
+          <Link href="/" className="font-sans text-xs text-cinza-texto hover:text-dourado transition-colors">Home</Link>
+          <Link href="#o-premio" className="font-sans text-xs text-cinza-texto hover:text-dourado transition-colors">O Prêmio</Link>
+          <Link href="#como-funciona" className="font-sans text-xs text-cinza-texto hover:text-dourado transition-colors">Como Funciona</Link>
+          <Link href="#categorias" className="font-sans text-xs text-cinza-texto hover:text-dourado transition-colors">Categorias</Link>
+          <Link href="#premiacao" className="font-sans text-xs text-cinza-texto hover:text-dourado transition-colors">Premiação</Link>
+          <Link href="/regulamento" className="font-sans text-xs text-cinza-texto hover:text-dourado transition-colors">Regulamento</Link>
+          <Link href="/resultados" className="font-sans text-xs text-cinza-texto hover:text-dourado transition-colors">Resultados</Link>
         </div>
+
 
         <p className="text-center font-sans text-xs text-cinza-texto/70">
           © 2026 Troféu Os Melhores do Ano – Beleza DF. Todos os direitos

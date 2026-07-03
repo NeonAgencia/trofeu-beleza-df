@@ -6,11 +6,10 @@ import logoEscolas from "@/public/logo-escolas-mono.png";
 import logoValer from "@/public/logo-valer-mono.png";
 
 const NAV = [
-  { label: "O Prêmio", href: "#o-premio" },
-  { label: "Como Funciona", href: "#como-funciona" },
-  { label: "Categorias", href: "#categorias" },
-  { label: "Premiação", href: "#premiacao" },
-  { label: "Regulamento", href: "#regulamento" },
+  { label: "Home", href: "/" },
+  { label: "O Prêmio", href: "/#o-premio" },
+  { label: "Categorias", href: "/#categorias" },
+  { label: "Regulamento", href: "/regulamento" },
   { label: "Resultados", href: "/resultados" },
 ];
 
@@ -26,7 +25,7 @@ export function SiteHeader() {
       <div className="fixed inset-x-0 top-0 z-50 hidden border-b border-border/50 bg-preto/95 backdrop-blur lg:block">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-2">
           {/* Esquerda: Escolas de Sucesso, com "Venha ser" integrado ao lockup */}
-          <div className="flex flex-col items-start gap-1 leading-none">
+          <Link href="/" className="flex flex-col items-start gap-1 leading-none hover:opacity-80 transition-opacity">
             <span className="font-display text-xs font-semibold uppercase tracking-[0.18em] text-dourado/90">
               Venha ser
             </span>
@@ -35,7 +34,7 @@ export function SiteHeader() {
               alt="Escolas de Sucesso"
               className="h-14 w-auto"
             />
-          </div>
+          </Link>
 
           {/* Centro: rótulo institucional */}
           <span className="font-sans text-[11px] font-medium uppercase tracking-[0.28em] text-cinza-texto/60">
@@ -43,7 +42,9 @@ export function SiteHeader() {
           </span>
 
           {/* Direita: Instituto Valer */}
-          <Image src={logoValer} alt="Instituto Valer" className="h-14 w-auto" />
+          <Link href="/" className="hover:opacity-80 transition-opacity">
+            <Image src={logoValer} alt="Instituto Valer" className="h-14 w-auto" />
+          </Link>
         </div>
       </div>
 
@@ -54,7 +55,7 @@ export function SiteHeader() {
       <header className="relative z-40 border-b border-border bg-preto/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
           <Link
-            href="#topo"
+            href="/"
             className="whitespace-nowrap font-display text-sm font-bold uppercase tracking-[0.12em] text-dourado"
           >
             {/* [placeholder de logo] */}
@@ -75,10 +76,10 @@ export function SiteHeader() {
 
           {/* Botões de ação. No mobile estreito só cabe o primário;
               o secundário entra a partir de sm (o hero já oferece ambos). */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3 sm:gap-4">
             <CtaLink href={LINK_INSCRICAO}>Se inscreva</CtaLink>
             <CtaLink
-              href="#votacao"
+              href="/votar"
               variant="secondary"
               className="hidden sm:inline-flex"
             >

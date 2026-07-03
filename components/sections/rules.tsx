@@ -70,7 +70,7 @@ export function Rules() {
           </Reveal>
 
           <div>
-            <CtaLink href="#regulamento-completo" variant="secondary">
+            <CtaLink href="/regulamento" variant="secondary">
               Ler o regulamento completo
             </CtaLink>
           </div>

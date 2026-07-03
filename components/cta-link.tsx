@@ -27,12 +27,12 @@ export function CtaLink({
         ? { target: "_blank", rel: "noopener noreferrer" }
         : {})}
       className={cn(
-        "inline-flex items-center justify-center whitespace-nowrap rounded-lg font-sans font-semibold tracking-wide transition-[color,background-color,box-shadow] duration-300",
+        "inline-flex items-center justify-center whitespace-nowrap rounded-lg font-sans font-semibold tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] shimmer-border",
         size === "lg" ? "h-13 px-8 text-base" : "h-11 px-6 text-sm",
         variant === "primary" &&
-          "bg-dourado text-preto hover:bg-dourado-claro hover:shadow-[0_0_24px_-6px_rgba(201,162,75,0.65)]",
+          "bg-dourado text-preto hover:bg-dourado-claro hover:shadow-[0_0_30px_0_rgba(201,162,75,0.7)]",
         variant === "secondary" &&
-          "border border-dourado text-dourado hover:bg-dourado hover:text-preto hover:shadow-[0_0_22px_-8px_rgba(201,162,75,0.55)]",
+          "border border-dourado text-dourado hover:bg-dourado hover:text-preto hover:shadow-[0_0_25px_0_rgba(201,162,75,0.5)]",
         className,
       )}
     >
