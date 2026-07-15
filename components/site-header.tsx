@@ -14,21 +14,13 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-dourado/20 bg-preto/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
-        {/* Lado Esquerdo: Silhouette Logo + Nome Oficial */}
-        <Link href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
+        {/* Lado Esquerdo: Imagem do Logo Oficial do Cabeçalho (Recortada do Mockup) */}
+        <Link href="/" className="hover:opacity-90 transition-opacity">
           <img
             src="/logo-header-clean.png"
-            alt="Logo"
-            className="h-9 w-9 sm:h-10 sm:w-10 object-contain select-none pointer-events-none"
+            alt="Troféu Os Melhores do Ano"
+            className="h-10 sm:h-12 w-auto object-contain select-none pointer-events-none"
           />
-          <div className="flex flex-col">
-            <span className="font-display text-[9px] sm:text-xs font-bold uppercase tracking-[0.16em] text-dourado leading-tight">
-              TROFÉU
-            </span>
-            <span className="font-display text-[10px] sm:text-sm font-bold uppercase tracking-[0.18em] text-branco-quente leading-tight">
-              OS MELHORES DO ANO
-            </span>
-          </div>
         </Link>
 
         {/* Centro: Links de Navegação */}
@@ -48,7 +40,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-2 sm:gap-4">
           <Link href="/" className="hidden md:block hover:opacity-90 transition-opacity mr-2">
             <img
-              src="/logo-instituto-valer.png"
+              src="/logo-valer-clean.png"
               alt="Instituto Valer"
               className="h-10 w-auto opacity-95 select-none pointer-events-none"
             />
