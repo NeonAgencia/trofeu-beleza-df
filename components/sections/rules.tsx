@@ -4,6 +4,7 @@ import {
   MapPin,
   BarChart3,
   Lock,
+  BookOpen,
 } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { CtaLink } from "@/components/cta-link";
@@ -46,19 +47,22 @@ export function Rules() {
           subtitle="Regras claras, voto que conta"
         />
 
-        {/* Painel de vidro fosco escuro — mesmo glass dos cards, envolvendo as regras */}
-        <div className="glass-card flex flex-col gap-8 rounded-2xl p-8 sm:p-10">
+        {/* Painel de vidro fosco escuro com borda dourada e glow */}
+        <div className="glass-card flex flex-col gap-8 rounded-2xl border border-dourado/30 p-8 sm:p-10 shadow-[0_0_32px_rgba(201,162,75,0.06)]">
           <Reveal>
-            <ul className="flex flex-col gap-5">
+            <ul className="flex flex-col divide-y divide-dourado/15">
               {REGRAS.map((r) => {
                 const Icon = r.icon;
                 return (
-                  <li key={r.text} className="flex items-start gap-3">
-                    <Icon
-                      className="mt-0.5 size-5 shrink-0 text-dourado"
-                      aria-hidden
-                    />
-                    <span className="font-sans text-sm leading-relaxed text-cinza-texto">
+                  <li key={r.text} className="flex items-center gap-6 py-5 first:pt-0 last:pb-0">
+                    <div className="flex w-12 justify-center shrink-0">
+                      <Icon
+                        className="size-8 text-dourado drop-shadow-[0_0_12px_rgba(201,162,75,0.4)]"
+                        aria-hidden
+                      />
+                    </div>
+                    <div className="h-10 w-px bg-dourado/20 shrink-0" />
+                    <span className="font-sans text-sm sm:text-base leading-relaxed text-cinza-texto pl-2">
                       {r.text}
                     </span>
                   </li>
@@ -67,8 +71,9 @@ export function Rules() {
             </ul>
           </Reveal>
 
-          <div>
-            <CtaLink href="/regulamento" variant="secondary">
+          <div className="flex justify-center pt-2">
+            <CtaLink href="/regulamento" variant="secondary" className="flex items-center gap-2">
+              <BookOpen className="size-4" />
               Ler o regulamento completo
             </CtaLink>
           </div>
