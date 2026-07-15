@@ -27,10 +27,10 @@ export function Hero() {
             ✦ Troféu · Beleza DF
           </span>
           <h1 className="bg-gradient-to-b from-[#F6E6AE] via-dourado-claro to-[#A9842F] bg-clip-text pb-[0.12em] font-display text-4xl font-bold uppercase leading-[1.12] tracking-wide text-transparent sm:text-5xl lg:text-6xl">
-            Os Melhores do Ano da Beleza do DF
+            OS MELHORES DO ANO DA BELEZA DO DF
           </h1>
           <p className="font-sans text-lg text-branco-quente">
-            Reconhecendo quem faz a beleza acontecer em todo o Distrito Federal.
+            Reconhecimento aos profissionais e estabelecimentos que movimentam o setor da beleza em todo o Distrito Federal.
           </p>
         </div>
 
@@ -72,9 +72,7 @@ export function Hero() {
         {/* Texto — parte de baixo (descrição + botões) */}
         <div className="flex flex-col items-center gap-6 text-center lg:col-start-1 lg:row-start-2 lg:items-start lg:self-start lg:text-left">
           <p className="max-w-xl font-sans text-base leading-relaxed text-cinza-texto">
-            Profissionais e estabelecimentos da beleza já podem se inscrever para
-            representar sua Região Administrativa em uma premiação popular, online
-            e feita para valorizar o talento local.
+            Profissionais e empresas da beleza podem se inscrever para representar sua Região Administrativa em uma premiação popular, online e transparente, criada para valorizar talentos locais.
           </p>
           {/* Mobile: lado a lado, menores (flex-1). Desktop: tamanho aprovado. */}
           <div className="mt-2 flex w-full justify-center gap-3 lg:w-auto lg:justify-start lg:gap-4">
@@ -83,7 +81,7 @@ export function Hero() {
               size="lg"
               className="h-11 flex-1 px-3 text-sm sm:h-13 sm:flex-none sm:px-8 sm:text-base"
             >
-              Se inscreva
+              FAÇA SUA INSCRIÇÃO
             </CtaLink>
             <CtaLink
               href="/votar"
@@ -91,7 +89,7 @@ export function Hero() {
               size="lg"
               className="h-11 flex-1 px-3 text-sm sm:h-13 sm:flex-none sm:px-8 sm:text-base"
             >
-              Vote no melhor
+              VOTE NO MELHOR
             </CtaLink>
           </div>
         </div>

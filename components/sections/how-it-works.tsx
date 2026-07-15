@@ -8,25 +8,25 @@ import { LINK_INSCRICAO } from "@/lib/links";
 const PASSOS = [
   {
     number: 1,
-    title: "Faça sua inscrição online",
+    title: "FAÇA SUA INSCRIÇÃO ONLINE",
     description: "Preencha o cadastro com seus dados e sua categoria.",
   },
   {
     number: 2,
-    title: "Escolha sua categoria",
+    title: "ESCOLHA SUA CATEGORIA",
     description:
       "Selecione a área em que você atua e a sua Região Administrativa.",
   },
   {
     number: 3,
-    title: "Participe da votação popular",
+    title: "PARTICIPE DA VOTAÇÃO POPULAR",
     description: "Quando a votação abrir, a comunidade vota nos melhores.",
   },
   {
     number: 4,
-    title: "Aguarde o reconhecimento",
+    title: "ACOMPANHE O RESULTADO",
     description:
-      "Os vencedores são revelados após a apuração oficial.",
+      "Os vencedores são reconhecidos após a apuração oficial.",
   },
 ];
 
@@ -64,10 +64,6 @@ export function HowItWorks() {
             atingirem o número mínimo de inscritos por Região Administrativa
             entram em votação.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-            <CtaLink href={LINK_INSCRICAO}>Se inscreva</CtaLink>
-            <CtaLink href="/votar" variant="secondary">Vote no melhor</CtaLink>
-          </div>
         </div>
       </div>
     </section>

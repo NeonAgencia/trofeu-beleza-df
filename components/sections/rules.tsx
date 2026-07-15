@@ -1,32 +1,30 @@
-import Image from "next/image";
 import {
-  CheckCircle2,
-  ShieldCheck,
-  Users,
-  CalendarCheck,
+  UserCheck,
+  ClipboardCheck,
+  MapPin,
+  BarChart3,
   Lock,
 } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { CtaLink } from "@/components/cta-link";
 import { Reveal } from "@/components/motion/reveal";
 import { TextureLines } from "@/components/decor/texture-lines";
-import heroBeleza from "@/public/hero-beleza.webp";
 
 const REGRAS = [
   {
-    icon: CheckCircle2,
+    icon: UserCheck,
     text: "Voto único por usuário, com verificação por login seguro — cada voto conta e é registrado.",
   },
   {
-    icon: ShieldCheck,
+    icon: ClipboardCheck,
     text: "Validação das inscrições pela organização antes da liberação para votação.",
   },
   {
-    icon: Users,
+    icon: MapPin,
     text: "Número mínimo por Região Administrativa — cada categoria abre conforme o regulamento.",
   },
   {
-    icon: CalendarCheck,
+    icon: BarChart3,
     text: "Resultados oficiais — divulgados somente após a apuração, no calendário da organização.",
   },
   {
@@ -76,18 +74,6 @@ export function Rules() {
           </div>
         </div>
       </div>
-
-      {/* Imagem de respiro — a beleza real, fechando a seção de transparência */}
-      <Reveal className="relative mx-auto mt-16 aspect-[16/9] max-w-6xl overflow-hidden rounded-2xl border border-border sm:aspect-[21/9]">
-        <Image
-          src={heroBeleza}
-          alt="Cabeleireira premium finalizando um penteado elaborado numa cliente, em ambiente sofisticado à luz de velas"
-          fill
-          sizes="(max-width: 1024px) 92vw, 1100px"
-          placeholder="blur"
-          className="object-cover object-center"
-        />
-      </Reveal>
     </section>
   );
 }

@@ -23,19 +23,19 @@ import { LINK_INSCRICAO } from "@/lib/links";
 const PROFISSIONAIS = [
   { icon: Scissors, label: "Melhor Cabeleireiro(a)" },
   { icon: Razor, label: "Melhor Barbeiro" },
-  { icon: PaintbrushVertical, label: "Melhor Maquiador(a)" },
-  { icon: NailPolish, label: "Melhor Nail Design" },
+  { icon: NailPolish, label: "Melhor Manicure" },
+  { icon: Flower2, label: "Melhor Profissional de Estética" },
   { icon: Eyebrow, label: "Melhor Designer de Sobrancelhas" },
   { icon: Lashes, label: "Melhor Lash Designer" },
   { icon: Syringe, label: "Melhor Micropigmentador(a)" },
-  { icon: Flower2, label: "Melhor Profissional de Estética" },
+  { icon: PaintbrushVertical, label: "Melhor Maquiador(a)" },
 ];
 
 const ESTABELECIMENTOS = [
   { icon: Armchair, label: "Melhor Salão de Beleza" },
   { icon: BarberPole, label: "Melhor Barbearia" },
   { icon: ScanFace, label: "Melhor Clínica de Estética" },
-  { icon: NailPolish, label: "Melhor Esmalteria / Nail Studio" },
+  { icon: NailPolish, label: "Melhor Nail Studio" },
   { icon: Eyebrow, label: "Melhor Espaço de Design de Sobrancelhas" },
   { icon: Lashes, label: "Melhor Espaço de Lash Design / Extensão de Cílios" },
   { icon: Syringe, label: "Melhor Espaço de Micropigmentação" },
@@ -43,21 +43,19 @@ const ESTABELECIMENTOS = [
 
 export function Categories() {
   return (
-    <section
-      id="categorias"
-      className="relative isolate overflow-hidden border-b border-border px-6 py-20 sm:py-24"
-    >
-      <TextureLines />
-      <div className="mx-auto flex max-w-6xl flex-col gap-12">
-        <SectionHeading
-          title="Categorias"
-          subtitle="Os profissionais e estabelecimentos que concorrem"
-        />
+    <>
+      {/* SEÇÃO A: PROFISSIONAIS */}
+      <section
+        id="categorias"
+        className="relative isolate overflow-hidden border-b border-border px-6 py-20 sm:py-24"
+      >
+        <TextureLines />
+        <div className="mx-auto flex max-w-6xl flex-col gap-12">
+          <SectionHeading
+            title="Categorias"
+            subtitle="Profissionais que concorrem"
+          />
 
-        <div className="flex flex-col gap-6">
-          <h3 className="font-display text-xl font-semibold uppercase tracking-wide text-dourado">
-            Profissionais
-          </h3>
           <Reveal className="flex flex-wrap justify-center gap-4">
             {PROFISSIONAIS.map((c) => (
               <CategoryCard
@@ -69,11 +67,20 @@ export function Categories() {
             ))}
           </Reveal>
         </div>
+      </section>
 
-        <div className="flex flex-col gap-6">
-          <h3 className="font-display text-xl font-semibold uppercase tracking-wide text-dourado">
-            Empresas e Estabelecimentos
-          </h3>
+      {/* SEÇÃO B: EMPRESAS E ESTABELECIMENTOS */}
+      <section
+        id="estabelecimentos"
+        className="relative isolate overflow-hidden border-b border-border px-6 py-20 sm:py-24"
+      >
+        <TextureLines flip />
+        <div className="mx-auto flex max-w-6xl flex-col gap-12">
+          <SectionHeading
+            title="Categorias"
+            subtitle="Empresas e estabelecimentos que concorrem"
+          />
+
           <Reveal className="flex flex-wrap justify-center gap-4">
             {ESTABELECIMENTOS.map((c) => (
               <CategoryCard
@@ -84,18 +91,14 @@ export function Categories() {
               />
             ))}
           </Reveal>
-        </div>
 
-        <div className="flex flex-col items-center gap-6">
-          <p className="text-center font-display text-lg uppercase tracking-wide text-dourado-claro">
-            Acompanhe. Participe. Viva esse reconhecimento.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-            <CtaLink href={LINK_INSCRICAO}>Se inscreva</CtaLink>
-            <CtaLink href="/votar" variant="secondary">Vote no melhor</CtaLink>
+          <div className="flex flex-col items-center gap-6 mt-6">
+            <p className="text-center font-display text-lg uppercase tracking-wider text-dourado-claro">
+              ACOMPANHE, PARTICIPE, VIVA ESSE RECONHECIMENTO
+            </p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

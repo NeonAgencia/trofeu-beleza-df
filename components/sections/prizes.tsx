@@ -9,30 +9,30 @@ import { LINK_INSCRICAO } from "@/lib/links";
 const PREMIOS = [
   {
     icon: Trophy,
-    title: "Troféu físico",
+    title: "TROFÉU FÍSICO",
     description:
       "Entregue em noite de gala, em cerimônia exclusiva em Brasília.",
   },
   {
     icon: BadgeCheck,
-    title: "Selo digital oficial",
+    title: "SELO DIGITAL OFICIAL",
     description:
       "Para finalistas e vencedores usarem nas suas comunicações.",
   },
   {
     icon: ScrollText,
-    title: "Certificado físico",
+    title: "CERTIFICADO FÍSICO",
     description: "Reconhecimento oficial, com moldura, para os vencedores.",
   },
   {
     icon: Megaphone,
-    title: "Destaque no site e redes",
+    title: "DESTAQUE NO SITE E REDES",
     description: "Projeção da marca e do trabalho do profissional.",
   },
   {
     icon: Newspaper,
-    title: "Divulgação em veículos especializados",
-    description: "Cobertura em mídias do setor de beleza.",
+    title: "DIVULGAÇÃO EM VEÍCULOS ESTRATÉGICOS",
+    description: "Cobertura em mídias e ações do setor de beleza.",
   },
 ];
 
@@ -76,10 +76,6 @@ export function Prizes() {
             ))}
           </div>
         </Reveal>
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6">
-          <CtaLink href={LINK_INSCRICAO}>Se inscreva</CtaLink>
-          <CtaLink href="/votar" variant="secondary">Vote no melhor</CtaLink>
-        </div>
       </div>
     </section>
   );

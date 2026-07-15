@@ -4,28 +4,23 @@ import { SectionHeading } from "@/components/section-heading";
 import { FeatureCard } from "@/components/feature-card";
 import { Reveal } from "@/components/motion/reveal";
 import { TextureLines } from "@/components/decor/texture-lines";
-import premioReconhecimento from "@/public/premio-reconhecimento.webp";
-import { LINK_INSCRICAO } from "@/lib/links";
+import trofeuHero from "@/public/trofeu-hero.webp";
 
 const DESTAQUES = [
   {
     icon: ClipboardList,
-    title: "Inscrição Online",
+    title: "INSCRIÇÃO ONLINE",
     description: "Sua participação começa com um cadastro simples e digital.",
-    ctaText: "Se inscrever",
-    ctaHref: LINK_INSCRICAO,
   },
   {
     icon: Vote,
-    title: "Votação Popular",
-    description: "A comunidade decide quem se destacou no ano.",
-    ctaText: "Votar no melhor",
-    ctaHref: "/votar",
+    title: "VOTAÇÃO POPULAR",
+    description: "A comunidade reconhece quem mais se destacou no ano.",
   },
   {
     icon: MapPin,
-    title: "Por Região Administrativa",
-    description: "Cada talento representa e concorre pela sua região.",
+    title: "POR REGIÃO ADMINISTRATIVA",
+    description: "Cada participante representa sua região e concorre com visibilidade local.",
   },
 ];
 
@@ -48,10 +43,9 @@ export function About() {
             <p className="font-sans text-base leading-relaxed text-cinza-texto">
               O Troféu Os Melhores do Ano – Beleza DF é uma premiação criada para
               reconhecer e valorizar profissionais, empresas e estabelecimentos
-              que movimentam o setor da beleza em todo o Distrito Federal. A
-              proposta é dar visibilidade a quem trabalha todos os dias com
-              talento, dedicação, atendimento, criatividade e compromisso com seus
-              clientes.
+              que se destacam em todo o Distrito Federal. A proposta é dar
+              visibilidade a quem trabalha todos os dias com talento, dedicação,
+              atendimento, criatividade e compromisso com seus clientes.
             </p>
 
             <Reveal className="grid gap-4 sm:grid-cols-3">
@@ -61,8 +55,6 @@ export function About() {
                   icon={d.icon}
                   title={d.title}
                   description={d.description}
-                  ctaText={d.ctaText}
-                  ctaHref={d.ctaHref}
                 />
               ))}
             </Reveal>
@@ -70,8 +62,8 @@ export function About() {
 
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border">
             <Image
-              src={premioReconhecimento}
-              alt="Mulher emocionada recebendo o troféu dourado Os Melhores do Ano em cerimônia de gala, com plateia ao fundo"
+              src={trofeuHero}
+              alt="Troféu oficial dourado do prêmio Os Melhores do Ano Beleza DF"
               fill
               sizes="(max-width: 1024px) 90vw, 540px"
               placeholder="blur"

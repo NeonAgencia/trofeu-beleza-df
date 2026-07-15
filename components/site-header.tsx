@@ -80,14 +80,14 @@ export function SiteHeader() {
               href={LINK_INSCRICAO}
               className="h-8 px-2 sm:h-11 sm:px-6 text-[10px] sm:text-sm"
             >
-              Se inscreva
+              Inscreva-se
             </CtaLink>
             <CtaLink
               href="/votar"
               variant="secondary"
               className="h-8 px-2 sm:h-11 sm:px-6 text-[10px] sm:text-sm"
             >
-              Vote no melhor
+              VOTE NO MELHOR
             </CtaLink>
           </div>
         </div>
