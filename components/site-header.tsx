@@ -12,7 +12,7 @@ const NAV = [
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-preto/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-dourado/20 bg-preto/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
         {/* Lado Esquerdo: Silhouette Logo + Nome Oficial */}
         <Link href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
@@ -46,11 +46,11 @@ export function SiteHeader() {
 
         {/* Lado Direito: Logo Valer + Botões */}
         <div className="flex items-center gap-2 sm:gap-4">
-          <Link href="/" className="hidden md:block hover:opacity-80 transition-opacity mr-2">
+          <Link href="/" className="hidden md:block hover:opacity-90 transition-opacity mr-2">
             <img
-              src="/logo-valer-mono.png"
+              src="/logo-instituto-valer.png"
               alt="Instituto Valer"
-              className="h-9 w-auto opacity-80 select-none pointer-events-none"
+              className="h-10 w-auto opacity-95 select-none pointer-events-none"
             />
           </Link>
 
