@@ -42,7 +42,7 @@ export function SiteHeader() {
             <img
               src="/logo-valer-clean.png"
               alt="Instituto Valer"
-              className="h-10 w-auto opacity-95 select-none pointer-events-none"
+              className="h-[52px] w-auto opacity-95 select-none pointer-events-none"
             />
           </Link>
 
