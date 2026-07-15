@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { CtaLink } from "@/components/cta-link";
 import { LINK_INSCRICAO } from "@/lib/links";
-import logoEscolas from "@/public/logo-escolas-mono.png";
 import logoValer from "@/public/logo-valer-mono.png";
 
 const NAV = [
@@ -13,68 +12,61 @@ const NAV = [
   { label: "Resultados", href: "/resultados" },
 ];
 
-// Header em duas camadas:
-// - Faixa institucional (logos): FIXA no topo (position: fixed), só desktop. Sempre
-//   visível ao rolar. Um spacer reserva a altura dela pra não cobrir o conteúdo.
-// - Linha principal (Troféu + menu + botões): rola normalmente com a página e sai
-//   de vista ao rolar.
 export function SiteHeader() {
   return (
-    <>
-      {/* Faixa de logos — FIXA no topo (desktop). Escolas à esquerda, Valer à direita. */}
-      <div className="fixed inset-x-0 top-0 z-50 hidden border-b border-border/50 bg-preto/95 backdrop-blur lg:block">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-2">
-          {/* Esquerda: Escolas de Sucesso, com "Venha ser" integrado ao lockup */}
-          <Link href="/" className="flex flex-col items-start gap-1 leading-none hover:opacity-80 transition-opacity">
-            <span className="font-display text-xs font-semibold uppercase tracking-[0.18em] text-dourado/90">
-              Venha ser
+    <header className="sticky top-0 z-40 border-b border-border bg-preto/95 backdrop-blur">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
+        {/* Lado Esquerdo: Silhouette Logo + Nome Oficial */}
+        <Link href="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
+          <svg
+            viewBox="0 0 24 24"
+            className="w-7 h-7 sm:w-8 sm:h-8"
+          >
+            <defs>
+              <linearGradient id="headerGold" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#F6E6AE" />
+                <stop offset="0.5" stopColor="#E8C97A" />
+                <stop offset="1" stopColor="#C9A24B" />
+              </linearGradient>
+            </defs>
+            <path
+              fill="url(#headerGold)"
+              d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"
+            />
+          </svg>
+          <div className="flex flex-col">
+            <span className="font-display text-[9px] sm:text-xs font-bold uppercase tracking-[0.16em] text-dourado leading-tight">
+              TROFÉU
             </span>
+            <span className="font-display text-[10px] sm:text-sm font-bold uppercase tracking-[0.18em] text-branco-quente leading-tight">
+              OS MELHORES DO ANO
+            </span>
+          </div>
+        </Link>
+
+        {/* Centro: Links de Navegação */}
+        <nav className="hidden items-center gap-5 lg:flex">
+          {NAV.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="whitespace-nowrap font-sans text-sm text-cinza-texto transition-colors hover:text-dourado"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Lado Direito: Logo Valer + Botões */}
+        <div className="flex items-center gap-2 sm:gap-4">
+          <Link href="/" className="hidden md:block hover:opacity-80 transition-opacity mr-2">
             <Image
-              src={logoEscolas}
-              alt="Escolas de Sucesso"
-              className="h-14 w-auto"
+              src={logoValer}
+              alt="Instituto Valer"
+              className="h-10 w-auto opacity-80"
             />
           </Link>
 
-          {/* Centro: rótulo institucional */}
-          <span className="font-sans text-[11px] font-medium uppercase tracking-[0.28em] text-cinza-texto/60">
-            Uma realização
-          </span>
-
-          {/* Direita: Instituto Valer */}
-          <Link href="/" className="hover:opacity-80 transition-opacity">
-            <Image src={logoValer} alt="Instituto Valer" className="h-14 w-auto" />
-          </Link>
-        </div>
-      </div>
-
-      {/* Spacer — reserva a altura da faixa fixa (desktop), evita sobreposição */}
-      <div aria-hidden className="hidden h-[94px] lg:block" />
-
-      {/* Linha principal — acompanha o scroll (sticky) */}
-      <header className="sticky top-0 lg:top-[94px] z-40 border-b border-border bg-preto/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
-          <Link
-            href="/"
-            className="whitespace-nowrap font-display text-[10px] sm:text-sm font-bold uppercase tracking-[0.08em] sm:tracking-[0.12em] text-dourado"
-          >
-            {/* [placeholder de logo] */}
-            Troféu · Beleza DF
-          </Link>
-
-          <nav className="hidden items-center gap-5 lg:flex">
-            {NAV.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="whitespace-nowrap font-sans text-sm text-cinza-texto transition-colors hover:text-dourado"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Botões de ação. Ambos visíveis no celular de forma compacta e responsiva. */}
           <div className="flex items-center gap-1.5 sm:gap-3">
             <CtaLink 
               href={LINK_INSCRICAO}
@@ -91,7 +83,7 @@ export function SiteHeader() {
             </CtaLink>
           </div>
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   );
 }

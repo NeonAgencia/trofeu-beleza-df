@@ -1,11 +1,9 @@
-import Image from "next/image";
 import { CtaLink } from "@/components/cta-link";
 import { LINK_INSCRICAO } from "@/lib/links";
 import { HeroFog } from "@/components/decor/hero-fog";
 import { HeroLines } from "@/components/decor/hero-lines";
 import { HeroSpotlights } from "@/components/decor/hero-spotlights";
-import { HeroTrophyVideo } from "@/components/decor/hero-trophy-video";
-import moldura from "@/public/moldura.webp";
+import { HeroTrophy } from "@/components/decor/hero-trophy";
 
 export function Hero() {
   return (
@@ -34,39 +32,9 @@ export function Hero() {
           </p>
         </div>
 
-        {/* Palco: troféu (vídeo) girando DENTRO da moldura dourada barroca. O vídeo
-            preenche o vão central; a moldura (PNG transparente) cobre as bordas.
-            Mobile: menor e ENTRE as frases. Desktop: coluna da direita. */}
-        <div className="relative mx-auto w-full max-w-[240px] sm:max-w-[360px] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:max-w-[550px]">
-          {/* Glow dourado muito sutil atrás da moldura, pra assentar no hero */}
-          <div
-            aria-hidden
-            className="absolute inset-0 -z-10 scale-110"
-            style={{
-              background:
-                "radial-gradient(closest-side, rgba(201,162,75,0.14), rgba(201,162,75,0) 78%)",
-            }}
-          />
-          <div className="relative" style={{ aspectRatio: "1024 / 1536" }}>
-            {/* Vão central — o vídeo do troféu (object-cover preenche; a moldura
-                cobre as bordas, eliminando qualquer retângulo) */}
-            <div
-              className="absolute overflow-hidden"
-              style={{ left: "23%", top: "20%", width: "54%", height: "62%" }}
-            >
-              <HeroTrophyVideo />
-            </div>
-            {/* Moldura dourada por cima */}
-            <Image
-              src={moldura}
-              alt=""
-              aria-hidden
-              fill
-              sizes="(max-width: 640px) 240px, (max-width: 1024px) 360px, 550px"
-              className="pointer-events-none select-none object-contain"
-              priority
-            />
-          </div>
+        {/* Palco: troféu silhouette vetorizado dourado no pedestal */}
+        <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1 w-full">
+          <HeroTrophy />
         </div>
 
         {/* Texto — parte de baixo (descrição + botões) */}

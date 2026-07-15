@@ -1,10 +1,9 @@
-import Image from "next/image";
 import { ClipboardList, Vote, MapPin } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { FeatureCard } from "@/components/feature-card";
 import { Reveal } from "@/components/motion/reveal";
 import { TextureLines } from "@/components/decor/texture-lines";
-import trofeuHero from "@/public/trofeu-hero.webp";
+import { HeroTrophy } from "@/components/decor/hero-trophy";
 
 const DESTAQUES = [
   {
@@ -60,15 +59,8 @@ export function About() {
             </Reveal>
           </div>
 
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border">
-            <Image
-              src={trofeuHero}
-              alt="Troféu oficial dourado do prêmio Os Melhores do Ano Beleza DF"
-              fill
-              sizes="(max-width: 1024px) 90vw, 540px"
-              placeholder="blur"
-              className="object-cover"
-            />
+          <div className="w-full flex items-center justify-center">
+            <HeroTrophy />
           </div>
         </div>
       </div>
