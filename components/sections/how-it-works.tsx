@@ -43,12 +43,12 @@ export function HowItWorks() {
           subtitle="Simples, digital e por Região Administrativa"
         />
 
-        {/* Painel de vidro fosco escuro — mesmo glass dos cards, envolvendo a timeline */}
-        <div className="glass-card flex flex-col gap-10 rounded-2xl p-8 sm:p-10">
+        {/* Painel com borda dourada envolvendo os 4 passos */}
+        <div className="rounded-2xl border border-dourado/40 p-8 sm:p-10 shadow-[0_0_32px_rgba(201,162,75,0.06)]">
           <Reveal>
-            <ol className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-dourado/25">
               {PASSOS.map((p) => (
-                <li key={p.number}>
+                <li key={p.number} className="lg:px-6 first:lg:pl-0 last:lg:pr-0">
                   <TimelineStep
                     number={p.number}
                     title={p.title}
@@ -59,7 +59,7 @@ export function HowItWorks() {
             </ol>
           </Reveal>
 
-          <p className="mx-auto max-w-3xl text-center font-sans text-sm leading-relaxed text-cinza-texto">
+          <p className="mx-auto mt-10 max-w-3xl text-center font-sans text-sm leading-relaxed text-cinza-texto">
             Após a inscrição, a organização valida os dados. As categorias que
             atingirem o número mínimo de inscritos por Região Administrativa
             entram em votação.

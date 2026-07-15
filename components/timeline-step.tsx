@@ -15,11 +15,14 @@ export function TimelineStep({
   className,
 }: TimelineStepProps) {
   return (
-    <div className={cn("flex flex-col gap-2", className)}>
-      <span className="font-display text-5xl font-bold leading-none text-dourado">
-        {number}
-      </span>
-      <h3 className="font-display text-lg font-semibold text-branco-quente">
+    <div className={cn("flex flex-col items-center gap-4 text-center", className)}>
+      {/* Círculo dourado com borda */}
+      <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-dourado text-dourado shadow-[0_0_14px_rgba(201,162,75,0.3)]">
+        <span className="font-display text-2xl font-bold leading-none">
+          {number}
+        </span>
+      </div>
+      <h3 className="font-display text-sm font-bold uppercase tracking-wider text-dourado leading-snug">
         {title}
       </h3>
       <p className="font-sans text-sm leading-relaxed text-cinza-texto">
