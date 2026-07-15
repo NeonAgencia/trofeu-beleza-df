@@ -60,7 +60,13 @@ export function About() {
           </div>
 
           <div className="w-full flex items-center justify-center">
-            <HeroTrophy />
+            <div className="relative w-full max-w-[420px] aspect-[4/3] overflow-hidden rounded-2xl border border-border/20 shadow-[0_4px_24px_rgba(0,0,0,0.5)]">
+              <img
+                src="/about-trophy.jpg"
+                alt="Troféu oficial Os Melhores do Ano"
+                className="w-full h-full object-cover select-none pointer-events-none"
+              />
+            </div>
           </div>
         </div>
       </div>
