@@ -1,20 +1,7 @@
-import {
-  Syringe,
-  Armchair,
-  ScanFace,
-} from "lucide-react";
-import {
-  NailPolish,
-  Eyebrow,
-  Lashes,
-  BarberPole,
-} from "@/components/icons/beauty-icons";
 import { SectionHeading } from "@/components/section-heading";
 import { CategoryCard } from "@/components/category-card";
 import { Reveal } from "@/components/motion/reveal";
 import { TextureLines } from "@/components/decor/texture-lines";
-import { CtaLink } from "@/components/cta-link";
-import { LINK_INSCRICAO } from "@/lib/links";
 
 const PROFISSIONAIS = [
   { img: "/cat-icon-cabeleireiro.png", label: "Melhor Cabeleireiro(a)" },
@@ -28,13 +15,13 @@ const PROFISSIONAIS = [
 ];
 
 const ESTABELECIMENTOS = [
-  { icon: Armchair, label: "Melhor Salão de Beleza" },
-  { icon: BarberPole, label: "Melhor Barbearia" },
-  { icon: ScanFace, label: "Melhor Clínica de Estética" },
-  { icon: NailPolish, label: "Melhor Nail Studio" },
-  { icon: Eyebrow, label: "Melhor Espaço de Design de Sobrancelhas" },
-  { icon: Lashes, label: "Melhor Espaço de Lash Design / Extensão de Cílios" },
-  { icon: Syringe, label: "Melhor Espaço de Micropigmentação" },
+  { img: "/estab-icon-salao.png", label: "Melhor Salão de Beleza" },
+  { img: "/estab-icon-barbearia.png", label: "Melhor Barbearia" },
+  { img: "/estab-icon-estetica.png", label: "Melhor Clínica de Estética" },
+  { img: "/estab-icon-nail.png", label: "Melhor Nail Studio" },
+  { img: "/estab-icon-sobrancelhas.png", label: "Melhor Espaço de Design de Sobrancelhas" },
+  { img: "/estab-icon-lash.png", label: "Melhor Espaço de Lash Design / Extensão de Cílios" },
+  { img: "/estab-icon-micropigmentacao.png", label: "Melhor Espaço de Micropigmentação" },
 ];
 
 export function Categories() {
@@ -81,7 +68,7 @@ export function Categories() {
             {ESTABELECIMENTOS.map((c) => (
               <CategoryCard
                 key={c.label}
-                icon={c.icon}
+                img={c.img}
                 label={c.label}
                 className="w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-3rem)/4)]"
               />
