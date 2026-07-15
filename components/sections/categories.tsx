@@ -1,13 +1,9 @@
 import {
-  Scissors,
-  PaintbrushVertical,
   Syringe,
-  Flower2,
   Armchair,
   ScanFace,
 } from "lucide-react";
 import {
-  Razor,
   NailPolish,
   Eyebrow,
   Lashes,
@@ -21,14 +17,14 @@ import { CtaLink } from "@/components/cta-link";
 import { LINK_INSCRICAO } from "@/lib/links";
 
 const PROFISSIONAIS = [
-  { icon: Scissors, label: "Melhor Cabeleireiro(a)" },
-  { icon: Razor, label: "Melhor Barbeiro" },
-  { icon: NailPolish, label: "Melhor Manicure" },
-  { icon: Flower2, label: "Melhor Profissional de Estética" },
-  { icon: Eyebrow, label: "Melhor Designer de Sobrancelhas" },
-  { icon: Lashes, label: "Melhor Lash Designer" },
-  { icon: Syringe, label: "Melhor Micropigmentador(a)" },
-  { icon: PaintbrushVertical, label: "Melhor Maquiador(a)" },
+  { img: "/cat-icon-cabeleireiro.png", label: "Melhor Cabeleireiro(a)" },
+  { img: "/cat-icon-barbeiro.png", label: "Melhor Barbeiro" },
+  { img: "/cat-icon-manicure.png", label: "Melhor Manicure" },
+  { img: "/cat-icon-estetica.png", label: "Melhor Profissional de Estética" },
+  { img: "/cat-icon-sobrancelhas.png", label: "Melhor Designer de Sobrancelhas" },
+  { img: "/cat-icon-lash.png", label: "Melhor Lash Designer" },
+  { img: "/cat-icon-micropigmentador.png", label: "Melhor Micropigmentador(a)" },
+  { img: "/cat-icon-maquiador.png", label: "Melhor Maquiador(a)" },
 ];
 
 const ESTABELECIMENTOS = [
@@ -60,7 +56,7 @@ export function Categories() {
             {PROFISSIONAIS.map((c) => (
               <CategoryCard
                 key={c.label}
-                icon={c.icon}
+                img={c.img}
                 label={c.label}
                 className="w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-3rem)/4)]"
               />
