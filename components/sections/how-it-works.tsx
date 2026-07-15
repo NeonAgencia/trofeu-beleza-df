@@ -43,8 +43,8 @@ export function HowItWorks() {
           subtitle="Simples, digital e por Região Administrativa"
         />
 
-        {/* Painel com borda dourada envolvendo os 4 passos */}
-        <div className="rounded-2xl border border-dourado/40 p-8 sm:p-10 shadow-[0_0_32px_rgba(201,162,75,0.06)]">
+        {/* Painel com efeito glass e borda dourada envolvendo os 4 passos */}
+        <div className="glass-card rounded-2xl border border-dourado/40 p-8 sm:p-10 shadow-[0_0_32px_rgba(201,162,75,0.06)]">
           <Reveal>
             <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-dourado/25">
               {PASSOS.map((p) => (
