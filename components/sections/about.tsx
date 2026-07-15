@@ -60,11 +60,20 @@ export function About() {
           </div>
 
           <div className="w-full flex items-center justify-center">
-            <div className="relative w-full max-w-[420px] aspect-[4/3] overflow-hidden rounded-2xl border border-border/20 shadow-[0_4px_24px_rgba(0,0,0,0.5)]">
+            <div className="relative w-full max-w-[360px] aspect-[3/4] flex items-center justify-center">
+              {/* Glow circular de fundo */}
+              <div
+                aria-hidden
+                className="absolute inset-0 scale-90 opacity-40 blur-3xl"
+                style={{
+                  background:
+                    "radial-gradient(circle, rgba(201,162,75,0.2) 0%, rgba(201,162,75,0) 70%)",
+                }}
+              />
               <img
-                src="/about-trophy.jpg"
+                src="/trofeu-silhouette-nobg.png"
                 alt="Troféu oficial Os Melhores do Ano"
-                className="w-full h-full object-cover select-none pointer-events-none"
+                className="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
               />
             </div>
           </div>
