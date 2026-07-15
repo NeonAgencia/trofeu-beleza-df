@@ -75,21 +75,21 @@ export function About() {
           </div>
 
           {/* Coluna Direita: Troféu */}
-          <div className="w-full flex items-center justify-center">
-            <div className="relative w-full max-w-[420px] aspect-[3/4] flex items-center justify-center">
+          <div className="w-full flex items-center justify-center py-4">
+            <div className="relative w-full max-w-[560px] flex items-center justify-center mx-auto">
               {/* Glow circular de fundo */}
               <div
                 aria-hidden
-                className="absolute inset-0 scale-95 opacity-50 blur-3xl"
+                className="absolute inset-0 scale-110 opacity-60 blur-3xl"
                 style={{
                   background:
-                    "radial-gradient(circle, rgba(201,162,75,0.2) 0%, rgba(201,162,75,0) 70%)",
+                    "radial-gradient(circle, rgba(201,162,75,0.25) 0%, rgba(201,162,75,0) 70%)",
                 }}
               />
               <img
                 src="/trofeu-hero-clean.png"
                 alt="Troféu oficial Os Melhores do Ano"
-                className="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+                className="w-full h-auto object-contain select-none pointer-events-none drop-shadow-[0_8px_40px_rgba(201,162,75,0.15)]"
               />
             </div>
           </div>
