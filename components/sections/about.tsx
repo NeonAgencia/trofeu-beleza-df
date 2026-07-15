@@ -87,7 +87,7 @@ export function About() {
                 }}
               />
               <img
-                src="/trofeu-hero-clean.png"
+                src="/trofeu-hero.jpg"
                 alt="Troféu oficial Os Melhores do Ano"
                 className="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
               />
