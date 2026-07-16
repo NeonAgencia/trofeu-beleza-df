@@ -23,58 +23,64 @@ export function ChromaKeyVideo({ src, className }: ChromaKeyVideoProps) {
     let isProcessing = false;
 
     const processFrame = () => {
-      if (video.paused || video.ended) {
-        animationId = requestAnimationFrame(processFrame);
-        return;
-      }
+      if (isProcessing) return;
+      isProcessing = true;
 
-      // Configure dimensions of canvas to match video
-      if (canvas.width !== video.videoWidth && video.videoWidth > 0) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-      }
+      const loop = () => {
+        if (video.paused || video.ended) {
+          isProcessing = false;
+          return;
+        }
 
-      if (canvas.width > 0 && canvas.height > 0) {
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        try {
-          const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          const data = frame.data;
-          const length = data.length;
+        // Configure dimensions of canvas to match video
+        if (canvas.width !== video.videoWidth && video.videoWidth > 0) {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+        }
 
-          for (let i = 0; i < length; i += 4) {
-            const r = data[i + 0];
-            const g = data[i + 1];
-            const b = data[i + 2];
+        if (canvas.width > 0 && canvas.height > 0) {
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          try {
+            const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = frame.data;
+            const length = data.length;
 
-            // Dominant green color keying formula
-            // Green screen is pure vibrant green (e.g. #00b140 or similar)
-            if (g > 80 && g > r * 1.3 && g > b * 1.3) {
-              data[i + 3] = 0; // set alpha transparent
-            } else {
-              // Apply soft spill suppression on edges
-              const green_excess = g - Math.max(r, b);
-              if (green_excess > 10) {
-                data[i + 1] = Math.max(r, b); // neutralize green tint
-                data[i + 3] = Math.max(0, 255 - int_clamp(green_excess * 4.5)); // smooth edge transparency
+            for (let i = 0; i < length; i += 4) {
+              const r = data[i + 0];
+              const g = data[i + 1];
+              const b = data[i + 2];
+
+              // Dominant green color keying formula
+              if (g > 80 && g > r * 1.3 && g > b * 1.3) {
+                data[i + 3] = 0; // set alpha transparent
+              } else {
+                // Apply soft spill suppression on edges
+                const green_excess = g - Math.max(r, b);
+                if (green_excess > 10) {
+                  data[i + 1] = Math.max(r, b); // neutralize green tint
+                  data[i + 3] = Math.max(0, 255 - int_clamp(green_excess * 4.5)); // smooth edge transparency
+                }
               }
             }
+            ctx.putImageData(frame, 0, 0);
+          } catch (e) {
+            // Avoid breaking on initial frame loading
           }
-          ctx.putImageData(frame, 0, 0);
-        } catch (e) {
-          // Avoid breaking on initial frame loading or cross-origin hiccups
         }
-      }
 
-      animationId = requestAnimationFrame(processFrame);
+        animationId = requestAnimationFrame(loop);
+      };
+
+      animationId = requestAnimationFrame(loop);
     };
 
     const int_clamp = (val: number) => {
       return Math.min(255, Math.max(0, Math.round(val)));
     };
 
-    video.addEventListener("play", () => {
-      processFrame();
-    });
+    video.addEventListener("play", processFrame);
+    video.addEventListener("playing", processFrame);
+    video.addEventListener("canplay", processFrame);
 
     if (!video.paused) {
       processFrame();
@@ -82,6 +88,9 @@ export function ChromaKeyVideo({ src, className }: ChromaKeyVideoProps) {
 
     return () => {
       cancelAnimationFrame(animationId);
+      video.removeEventListener("play", processFrame);
+      video.removeEventListener("playing", processFrame);
+      video.removeEventListener("canplay", processFrame);
     };
   }, [src]);
 
@@ -95,7 +104,7 @@ export function ChromaKeyVideo({ src, className }: ChromaKeyVideoProps) {
         muted
         playsInline
         crossOrigin="anonymous"
-        className="hidden"
+        className="absolute pointer-events-none opacity-0 w-0 h-0"
       />
       <canvas ref={canvasRef} className="w-full h-full object-contain" />
     </div>
