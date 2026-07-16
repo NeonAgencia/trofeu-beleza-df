@@ -1,8 +1,9 @@
 import { Reveal } from "@/components/motion/reveal";
+import { ChromaKeyVideo } from "@/components/decor/chroma-key-video";
 
 export function HeroTrophy() {
   return (
-    <div className="relative flex flex-col items-center justify-center w-full max-w-[420px] lg:max-w-[480px] mx-auto aspect-[3/4]">
+    <div className="relative flex flex-col items-center justify-center w-full max-w-[600px] lg:max-w-[680px] mx-auto aspect-[3/4]">
       {/* Glow de fundo dourado sutil */}
       <div
         aria-hidden
@@ -66,13 +67,9 @@ export function HeroTrophy() {
       </svg>
 
       <Reveal className="w-full h-full flex items-center justify-center">
-        <video
+        <ChromaKeyVideo
           src="/video-360-hero.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-contain select-none pointer-events-none mix-blend-screen"
+          className="w-full h-full"
         />
       </Reveal>
     </div>
