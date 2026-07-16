@@ -20,25 +20,21 @@ export function ChromaKeyVideo({ src, className }: ChromaKeyVideoProps) {
     if (!ctx) return;
 
     let animationId: number;
-    let isProcessing = false;
 
-    const processFrame = () => {
-      if (isProcessing) return;
-      isProcessing = true;
+    const int_clamp = (val: number) => {
+      return Math.min(255, Math.max(0, Math.round(val)));
+    };
 
-      const loop = () => {
-        if (video.paused || video.ended) {
-          isProcessing = false;
-          return;
-        }
-
+    const loop = () => {
+      // Loop runs continuously to avoid stutters on video seek/restart
+      if (!video.paused && !video.ended && video.videoWidth > 0) {
         // Configure dimensions of canvas to match cropped video height
         const cropTopPercent = 0.22;
-        const cropBottomPercent = 0.22;
+        const cropBottomPercent = 0.245; // 24.5% bottom crop to cut the green base line
         const sourceY = video.videoHeight * cropTopPercent;
         const sourceHeight = video.videoHeight * (1 - cropTopPercent - cropBottomPercent);
 
-        if (canvas.width !== video.videoWidth && video.videoWidth > 0) {
+        if (canvas.width !== video.videoWidth) {
           canvas.width = video.videoWidth;
           canvas.height = sourceHeight;
         }
@@ -65,8 +61,8 @@ export function ChromaKeyVideo({ src, className }: ChromaKeyVideoProps) {
               const g = data[i + 1];
               const b = data[i + 2];
 
-              // Dominant green color keying formula
-              if (g > 80 && g > r * 1.3 && g > b * 1.3) {
+              // More sensitive chroma key to capture darker shadows at the base
+              if (g > 60 && g > r * 1.25 && g > b * 1.25) {
                 data[i + 3] = 0; // set alpha transparent
               } else {
                 // Apply soft spill suppression on edges
@@ -82,30 +78,16 @@ export function ChromaKeyVideo({ src, className }: ChromaKeyVideoProps) {
             // Avoid breaking on initial frame loading
           }
         }
-
-        animationId = requestAnimationFrame(loop);
-      };
+      }
 
       animationId = requestAnimationFrame(loop);
     };
 
-    const int_clamp = (val: number) => {
-      return Math.min(255, Math.max(0, Math.round(val)));
-    };
-
-    video.addEventListener("play", processFrame);
-    video.addEventListener("playing", processFrame);
-    video.addEventListener("canplay", processFrame);
-
-    if (!video.paused) {
-      processFrame();
-    }
+    // Start permanent loop
+    animationId = requestAnimationFrame(loop);
 
     return () => {
       cancelAnimationFrame(animationId);
-      video.removeEventListener("play", processFrame);
-      video.removeEventListener("playing", processFrame);
-      video.removeEventListener("canplay", processFrame);
     };
   }, [src]);
 
