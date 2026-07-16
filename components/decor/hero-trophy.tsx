@@ -66,10 +66,13 @@ export function HeroTrophy() {
       </svg>
 
       <Reveal className="w-full h-full flex items-center justify-center">
-        <img
-          src="/trofeu-hero-clean.png"
-          alt="Troféu oficial Os Melhores do Ano"
-          className="w-full h-full object-contain select-none pointer-events-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.5)]"
+        <video
+          src="/video-360-hero.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-contain select-none pointer-events-none mix-blend-screen"
         />
       </Reveal>
     </div>

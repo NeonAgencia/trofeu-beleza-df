@@ -11,7 +11,7 @@ export function FinalCta() {
         <img
           src="/trofeu-hero-clean.png"
           alt="Troféu oficial Os Melhores do Ano"
-          className="h-28 w-auto object-contain select-none pointer-events-none mb-2 drop-shadow-[0_4px_20px_rgba(201,162,75,0.2)]"
+          className="h-40 sm:h-48 w-auto object-contain select-none pointer-events-none mb-2 drop-shadow-[0_4px_24px_rgba(201,162,75,0.25)]"
         />
         <h2 className="font-display text-3xl font-bold uppercase tracking-wider text-branco-quente sm:text-5xl leading-tight">
           SUA TRAJETÓRIA MERECE SER VISTA.

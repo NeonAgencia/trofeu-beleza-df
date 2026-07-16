@@ -7,7 +7,7 @@ export function SiteFooter() {
           <img
             src="/footer-logos.png"
             alt="Realização e Apoio"
-            className="h-32 sm:h-42 w-auto object-contain max-w-full select-none pointer-events-none opacity-95 hover:opacity-100 transition-opacity duration-300"
+            className="h-40 sm:h-52 w-auto object-contain max-w-full select-none pointer-events-none opacity-95 hover:opacity-100 transition-opacity duration-300"
           />
         </div>
 
