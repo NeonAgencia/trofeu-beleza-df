@@ -32,14 +32,29 @@ export function ChromaKeyVideo({ src, className }: ChromaKeyVideoProps) {
           return;
         }
 
-        // Configure dimensions of canvas to match video
+        // Configure dimensions of canvas to match cropped video height
+        const cropTopPercent = 0.22;
+        const cropBottomPercent = 0.22;
+        const sourceY = video.videoHeight * cropTopPercent;
+        const sourceHeight = video.videoHeight * (1 - cropTopPercent - cropBottomPercent);
+
         if (canvas.width !== video.videoWidth && video.videoWidth > 0) {
           canvas.width = video.videoWidth;
-          canvas.height = video.videoHeight;
+          canvas.height = sourceHeight;
         }
 
         if (canvas.width > 0 && canvas.height > 0) {
-          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          ctx.drawImage(
+            video,
+            0,
+            sourceY,
+            video.videoWidth,
+            sourceHeight,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+          );
           try {
             const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const data = frame.data;
