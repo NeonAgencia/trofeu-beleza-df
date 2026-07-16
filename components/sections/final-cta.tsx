@@ -4,7 +4,7 @@ import { HeroLines } from "@/components/decor/hero-lines";
 
 export function FinalCta() {
   return (
-    <section className="relative isolate overflow-hidden px-6 py-24 sm:py-32">
+    <section className="relative isolate overflow-hidden px-6 pt-20 pb-8 sm:pt-28 sm:pb-10">
       <HeroLines />
       <div className="relative mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
         {/* Troféu Dourado no cabeçalho do CTA */}

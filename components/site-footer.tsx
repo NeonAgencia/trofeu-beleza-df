@@ -1,13 +1,13 @@
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-preto">
-      <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-14">
+    <footer className="bg-preto">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 pt-2 pb-14">
         {/* Realização e Apoio — Faixa unificada de logomarcas */}
         <div className="flex justify-center border-b border-border/20 pb-10">
           <img
             src="/footer-logos.png"
             alt="Realização e Apoio"
-            className="h-28 sm:h-36 w-auto object-contain max-w-full select-none pointer-events-none opacity-95 hover:opacity-100 transition-opacity duration-300"
+            className="h-32 sm:h-42 w-auto object-contain max-w-full select-none pointer-events-none opacity-95 hover:opacity-100 transition-opacity duration-300"
           />
         </div>
 
