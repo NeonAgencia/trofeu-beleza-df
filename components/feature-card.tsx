@@ -4,7 +4,8 @@ import { IgniteIcon } from "@/components/motion/ignite-icon";
 import { CtaLink } from "@/components/cta-link";
 
 type FeatureCardProps = {
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  icon?: ComponentType<SVGProps<SVGSVGElement>>;
+  img?: string;
   title: string;
   description: string;
   className?: string;
@@ -18,6 +19,7 @@ type FeatureCardProps = {
 // Usado no Bloco "O que é o prêmio" (md) e na Premiação (lg).
 export function FeatureCard({
   icon: Icon,
+  img,
   title,
   description,
   className,
@@ -35,15 +37,26 @@ export function FeatureCard({
         className,
       )}
     >
-      <IgniteIcon>
-        <Icon
+      {img ? (
+        <img
+          src={img}
+          alt={title}
           className={cn(
-            "text-dourado transition-[filter] duration-300 group-hover:drop-shadow-[0_0_16px_rgba(201,162,75,0.75)]",
+            "object-contain select-none pointer-events-none transition-[filter] duration-300 group-hover:drop-shadow-[0_0_16px_rgba(201,162,75,0.75)]",
             lg ? "size-24" : "size-7",
           )}
-          aria-hidden
         />
-      </IgniteIcon>
+      ) : Icon ? (
+        <IgniteIcon>
+          <Icon
+            className={cn(
+              "text-dourado transition-[filter] duration-300 group-hover:drop-shadow-[0_0_16px_rgba(201,162,75,0.75)]",
+              lg ? "size-24" : "size-7",
+            )}
+            aria-hidden
+          />
+        </IgniteIcon>
+      ) : null}
       <h3
         className={cn(
           "font-display font-semibold text-branco-quente",

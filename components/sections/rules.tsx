@@ -55,13 +55,13 @@ export function Rules() {
                 const Icon = r.icon;
                 return (
                   <li key={r.text} className="flex items-center gap-6 py-5 first:pt-0 last:pb-0">
-                    <div className="flex w-12 justify-center shrink-0">
+                    <div className="flex w-14 justify-center shrink-0">
                       <Icon
-                        className="size-8 text-dourado drop-shadow-[0_0_12px_rgba(201,162,75,0.4)]"
+                        className="size-10 text-dourado drop-shadow-[0_0_12px_rgba(201,162,75,0.4)]"
                         aria-hidden
                       />
                     </div>
-                    <div className="h-10 w-px bg-dourado/20 shrink-0" />
+                    <div className="h-12 w-px bg-dourado/20 shrink-0" />
                     <span className="font-sans text-sm sm:text-base leading-relaxed text-cinza-texto pl-2">
                       {r.text}
                     </span>

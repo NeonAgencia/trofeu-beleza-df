@@ -1,38 +1,41 @@
-import { Trophy, BadgeCheck, ScrollText, Megaphone, Newspaper } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { FeatureCard } from "@/components/feature-card";
 import { Reveal } from "@/components/motion/reveal";
 import { TextureLines } from "@/components/decor/texture-lines";
-import { CtaLink } from "@/components/cta-link";
-import { LINK_INSCRICAO } from "@/lib/links";
 
 const PREMIOS = [
   {
-    icon: Trophy,
+    img: "/prize-icon-trofeu.png",
     title: "TROFÉU FÍSICO",
     description:
       "Entregue em noite de gala, em cerimônia exclusiva em Brasília.",
   },
   {
-    icon: BadgeCheck,
+    img: "/prize-icon-selo.png",
     title: "SELO DIGITAL OFICIAL",
     description:
       "Para finalistas e vencedores usarem nas suas comunicações.",
   },
   {
-    icon: ScrollText,
+    img: "/prize-icon-certificado.png",
     title: "CERTIFICADO FÍSICO",
     description: "Reconhecimento oficial, com moldura, para os vencedores.",
   },
   {
-    icon: Megaphone,
+    img: "/prize-icon-destaque.png",
     title: "DESTAQUE NO SITE E REDES",
     description: "Projeção da marca e do trabalho do profissional.",
   },
   {
-    icon: Newspaper,
+    img: "/prize-icon-divulgacao.png",
     title: "DIVULGAÇÃO EM VEÍCULOS ESTRATÉGICOS",
     description: "Cobertura em mídias e ações do setor de beleza.",
+  },
+  {
+    img: "/prize-icon-sistema.png",
+    title: "SISTEMA NEON STYLE",
+    description:
+      "Uso gratuito do sistema de gestão por 30 dias para o vencedor de cada categoria.",
   },
 ];
 
@@ -49,29 +52,17 @@ export function Prizes() {
           subtitle="O que os vencedores recebem"
         />
 
-        {/* 2 cards em cima, 3 embaixo — ambas as linhas centralizadas e alinhadas entre si */}
-        <Reveal className="flex flex-col gap-4">
-          <div className="flex flex-wrap justify-center gap-4">
-            {PREMIOS.slice(0, 2).map((p) => (
+        {/* Grade responsiva de 3 colunas para os 6 prêmios */}
+        <Reveal>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {PREMIOS.map((p) => (
               <FeatureCard
                 key={p.title}
-                icon={p.icon}
+                img={p.img}
                 title={p.title}
                 description={p.description}
                 size="lg"
-                className="w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-2rem)/3)]"
-              />
-            ))}
-          </div>
-          <div className="flex flex-wrap justify-center gap-4">
-            {PREMIOS.slice(2).map((p) => (
-              <FeatureCard
-                key={p.title}
-                icon={p.icon}
-                title={p.title}
-                description={p.description}
-                size="lg"
-                className="w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-2rem)/3)]"
+                className="w-full"
               />
             ))}
           </div>
